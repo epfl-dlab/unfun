@@ -23,6 +23,10 @@ Below, we describe each of the data files provided.
 
 This file is a complete database dump of Unfun.me as of July 12, 2018. Only the table of user profiles has been dropped, and IP addresses and user agent information has been salted and hashed.
 
+This dump has nearly all the information you will need, with these exceptions:
+- The [chunked](https://web.archive.org/web/20190110112122/https://opennlp.apache.org/docs/1.9.1/manual/opennlp.html) versions of headlines from The Onion are available only in `headlines_for_game_ANALYZED_AUGMENTED_LOWERCASE_HEADLINESTYLE.tsv` (unfunned versions are chunked on the fly in [`../code/R/analyze_unfun_data.Rmd`](../code/R/analyze_unfun_data.Rmd)).
+- Script oppositions for pairs of satirical and similar-but-serious-looking headlines are available only in `pairs_editdist_1_SCRIPT-OPPOSITION.tsv`.
+
 In what follows we briefly describe each table in the database.
 
 
