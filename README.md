@@ -20,11 +20,13 @@ Most important, we publish the full database dump of Unfun.me (as of July 12, 20
 - [`data/unfun_2018-07-12.sql.gz`](data/unfun_2018-07-12.sql.gz)
 
 We also release R code for reproducing all results (incl. plots and tables) of the paper:
-- [`code/R/analyze_unfun_data.Rmd`](code/R/analyze_unfun_data.Rmd) (script)
-- [`code/R/analyze_unfun_data.html`](code/R/analyze_unfun_data.html) (executed version of the above script)
+- [`code/R/analyze_unfun_data.Rmd`](code/R/analyze_unfun_data.Rmd)
+- A [rendered version](https://epfl-dlab.github.io/unfun/code/R/analyze_unfun_data.html) of the above script
+<!-- Here's how to make the GitHub Pages version: https://stackoverflow.com/a/8446391 -->
 
 The above R script doesn't work with the raw database dump, but with data files derived from the dump, which can also be found in the [`data/`](data) folder. All data files (incl. the full database dump) are described here:
 - [`data/README.md`](data/README.md)
 
 Code for chunking headlines using the [OpenNLP maximum-entropy chunker](https://web.archive.org/web/20190110112122/https://opennlp.apache.org/docs/1.9.1/manual/opennlp.html) is also available:
 - [`code/perl/chunk_headlines.pl`](code/perl/chunk_headlines.pl)
+ 
