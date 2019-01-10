@@ -24,7 +24,7 @@ Below, we describe each of the data files provided.
 This file is a complete database dump of Unfun.me as of July 12, 2018. Only the table of user profiles has been dropped, and IP addresses and user agent information has been salted and hashed.
 
 This dump has nearly all the information you will need, with these exceptions:
-- The [chunked](https://web.archive.org/web/20190110112122/https://opennlp.apache.org/docs/1.9.1/manual/opennlp.html) versions of headlines from The Onion are available only in `headlines_for_game_ANALYZED_AUGMENTED_LOWERCASE_HEADLINESTYLE.tsv` (unfunned versions are chunked on the fly in [`../code/R/analyze_unfun_data.Rmd`](../code/R/analyze_unfun_data.Rmd)).
+- The [chunked](https://web.archive.org/web/20190110112122/https://opennlp.apache.org/docs/1.9.1/manual/opennlp.html) versions of headlines from *The Onion* are available only in `headlines_for_game_ANALYZED_AUGMENTED_LOWERCASE_HEADLINESTYLE.tsv` (original, satirical headlines from *The Onion* only; unfunned versions are chunked on the fly in [`../code/R/analyze_unfun_data.Rmd`](../code/R/analyze_unfun_data.Rmd)).
 - Script oppositions for pairs of satirical and similar-but-serious-looking headlines are available only in `pairs_editdist_1_SCRIPT-OPPOSITION.tsv`.
 
 In what follows we briefly describe each table in the database.
@@ -89,7 +89,7 @@ Seriousness ratings collected via the "Real or Not?" task.
 
 ## headlines_for_game.tsv
 
-Satirical headlines from The Onion that served has input for the "Unfun the Headline!" task. All the information of this file is also contained in the database dump.
+Satirical headlines from *The Onion* that served has input for the "Unfun the Headline!" task. All the information of this file is also contained in the database dump.
 
 Tab-separated columns:
 
@@ -113,7 +113,7 @@ Tab-separated columns:
 
 ## original_headlines_with_ratings.tsv
 
-Data from the "Real or Not?" task: rated original headlines from The Onion as well as from serious outlets. All the information of this file is also contained in the database dump.
+Data from the "Real or Not?" task: rated original headlines from *The Onion* as well as from serious outlets. All the information of this file is also contained in the database dump.
 
 Tab-separated columns:
 
@@ -123,7 +123,7 @@ Tab-separated columns:
 - position of the rated headline among the two headlines shown (`0` or `1`)
 - rating given by the user; `0`: serious, `1`: satirical; note that, in the paper, the meaning of `0` and `1` is reversed for a more intuitive exposition
 - headline text
-- truth type: whether the headline was sourced from a serious news outlet (`real`) or from The Onion (`satirical`)
+- truth type: whether the headline was sourced from a serious news outlet (`real`) or from *The Onion* (`satirical`)
 - domain of the website that published the headline
 
 
