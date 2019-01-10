@@ -1,0 +1,255 @@
+old_title	new_title	modified_chunk_label	old_chunk	new_chunk	ratings	mean_rating	actual/non-actual	normal/abnormal	possible/impossible	life/death	non-violence/violence	good/bad intentions	reasonable/absurd response	high/low stature	non-obscene/obscene	unfunning_failed	not_clear_why_headline_funny
+95_year_old_yankees_fan afraid he ll_never_get_to_see team win 27_more_world_series	95_year_old_yankees_fan afraid he ll_never_get_to_see team win another_world_series	NP	27_more_world_series	another_world_series	1,0.901	0.9505			1	1							
+97th_birthday celebrated with nurses who just happened_to_be on duty	7th_birthday celebrated with nurses who just happened_to_be on duty	NP	97th_birthday	7th_birthday	0.513,0.609,0	0.374										1	
+abandoned_mall retains eerie_vestiges of fun shopping atmosphere	abandoned_mall retains finest_vestiges of fun shopping atmosphere	NP	eerie_vestiges	finest_vestiges	0.685,1	0.8425										1	
+african_american_community calls for new_black_nerd_archetype	african_american_community calls for new_black_role_models	NP	new_black_nerd_archetype	new_black_role_models	NA,0.743,0.996	0.8695	1						1	authority/no authority			
+alabama_super_illegalizes gay_marriage	alabama_legalizes gay_marriage	NP	alabama_super_illegalizes	alabama_legalizes	0.96,1,0.998	0.986			1			1					
+anti_spam_legislation opposed by powerful_penis_enlargement_lobby	anti_spam_legislation opposed by powerful_free_speech_lobby	NP	powerful_penis_enlargement_lobby	powerful_free_speech_lobby	0.934,0.637,0	0.5236666667			1			1			no genitals/genitals		
+anti_spam_legislation opposed by powerful_penis_enlargement_lobby	anti_spam_legislation opposed by powerful_domain_names_lobby	NP	powerful_penis_enlargement_lobby	powerful_domain_names_lobby	0.99,0.966	0.978			1			1			no genitals/genitals		
+aquarium unveils floating_carcasses of the_pacific exhibit	aquarium unveils floating_wonders of the_pacific exhibit	NP	floating_carcasses	floating_wonders	0.16,1,1	0.72			1	1							
+aquarium unveils floating_carcasses of the_pacific exhibit	aquarium unveils floating_crustacean of the_pacific exhibit	NP	floating_carcasses	floating_crustacean	NA,0.795,1	0.8975			1	1							
+area_fountain_simulates vomiting lion	area_fountain_simulates roaring lion	VP	vomiting	roaring	0.747,1	0.8735		1						solemn/mundane	no feces/feces		
+area_grandma enjoys_flourishing correspondence with mailer_daemon	area_grandma enjoys_flourishing correspondence with mailman	NP	mailer_daemon	mailman	NA,0.588,0.884	0.736			1					human/object, sophisticated/simple			
+area_man determined_to_make the_best of situation_comedy	area_man determined_to_make the_best of situation	NP	situation_comedy	situation	0.708,0.505,0	0.4043333333			1					solemn/mundane			
+area_man makes it through day	area_man makes it through snow	NP	day	snow	1,0.619	0.8095		1						success/failure			
+asian_economic_woes force layoffs of 700_000_pop_stars	asian_economic_woes force layoffs of 700_000_workers	NP	700_000_pop_stars	700_000_workers	0.834,0.923	0.8785			1				1	rich/poor			
+biden loses control of butterfly_knife during commencement_speech	biden loses control of audience during commencement_speech	NP	butterfly_knife	audience	NA,1,1	1			1		1			human/object			
+black_guy asks nation for change	occupy_walstreet asks nation for change	NP	black_guy	occupy_walstreet	0.86,NA,0.815	0.8375		1						authority/no authority			
+bp ready to_resume oil_spilling	bp ready to_resume oil_drilling	NP	oil_spilling	oil_drilling	1,1	1			1			1					
+bp ready to_resume oil_spilling	bp ready to_resume oil_cleanup	NP	oil_spilling	oil_cleanup	0.955,1	0.9775			1			1					
+breakthrough_drug_eliminates crying from infants	new_drug_soothes crying from infants	NP	breakthrough_drug_eliminates	new_drug_soothes	0.92,1	0.96										1	
+breakthrough_drug_eliminates crying from infants	breakthrough_drug_eliminates ancylostomiasis from infants	VP	crying	ancylostomiasis	0.841,0.96	0.9005			1			1					
+breakthrough_heinz_bottle_shoots_ketchup with laser_like_precision	breakthrough_heinz_bottle_dispenses_ketchup with laser_like_precision	NP	breakthrough_heinz_bottle_shoots_ketchup	breakthrough_heinz_bottle_dispenses_ketchup	1,1	1										1	
+brendan_fraser to_star in new_pre_movie_trivia_question	brendan_fraser to_star in new_pre_movie_trivia_show	NP	new_pre_movie_trivia_question	new_pre_movie_trivia_show	NA,0.853,0.992,1	0.9483333333			1					authority/no authority, success/failure			
+bush acknowledges existence of carbon_dioxide	bush acknowledges impact of carbon_dioxide	NP	existence	impact	NA,NA,NA,0.834,1	0.917			1			1					
+bush acknowledges existence of carbon_dioxide	bush acknowledges existence of carbon_overload	NP	carbon_dioxide	carbon_overload	1,1	1			1			1					
+bush finds error in fermilab_calculations	scientist finds error in fermilab_calculations	NP	bush	scientist	1,1	1			1					authority/no authority			
+bush finds error in fermilab_calculations	bush finds error in budget_calculations	NP	fermilab_calculations	budget_calculations	0.749,1	0.8745			1					sophisticated/simple			
+bush picks laser_background for presidential_portrait	bush picks rural_background for presidential_portrait	NP	laser_background	rural_background	0.658,0.873	0.7655			1					solemn/mundane			
+bush vows_to_remove toxic_petroleum from national_parks	bush vows_to_remove toxic_petrol from national_parks	NP	toxic_petroleum	toxic_petrol	0.797,1	0.8985			1			1					
+bush vows_to_remove toxic_petroleum from national_parks	bush vows_to_remove toxic_chemicals from national_parks	NP	toxic_petroleum	toxic_chemicals	0.737,NA,0.76	0.7485			1			1					
+cancer_victim given second_chance at death	cancer_victim given second_chance at life	NP	death	life	1,NA,1	1			1	1		1					
+carlos_zambrano s_refusal to_leave game enters 5th_hour	carlos_zambrano s_refusal to_leave game enters social_media	NP	5th_hour	social_media	0.595,0.933,0.093	0.5403333333			1				1				
+catchphrase from the love guru overheard	catchphrase from the love guru announced	VP	overheard	announced	NA,0,0.529,0.927	0.4853333333		1						solemn/mundane			
+chicago_public_schools celebrate fifth_straight_day without any_student_violence	chicago_public_schools celebrate fifth_week without any_student_violence	NP	fifth_straight_day	fifth_week	NA,NA,1,1	1		1			1						
+china_hosts realistic_looking_olympics	china_hosts olympics	NP	realistic_looking_olympics	olympics	1,1,1	1			1			1					
+city opens new_art_jail	city opens new_art_museum	NP	new_art_jail	new_art_museum	0.73,0.966	0.848			1		1	1	1	solemn/mundane, sophisticated/simple			
+city opens new_art_jail	city opens new_jail	NP	new_art_jail	new_jail	0.998,0.814	0.906			1		1	1	1	sophisticated/simple			
+city_places_orange_traffic_cones around space_time_portal	city_places_orange_traffic_cones around sinkhole	NP	space_time_portal	sinkhole	1,0.741	0.8705			1					sophisticated/simple			
+clemens_files_defamation_lawsuit against steroids	clemens_files_defamation_lawsuit against journalist	NP	steroids	journalist	1,NA,1	1			1				1	human/object			
+cleveland_browns_fan_beginning to_question his_future with team	cleveland_browns_quarterback_beginning to_question his_future with team	NP	cleveland_browns_fan_beginning	cleveland_browns_quarterback_beginning	0.986,0.966	0.976		1						authority/no authority			
+company s_sexual_harrassment_policy targets one_employee	company s_sexual_harrassment_policy targets older_employees	NP	one_employee	older_employees	NA,1,1	1			1				1				
+congress takes group of schoolchildren_hostage	terrorist takes group of schoolchildren_hostage	NP	congress	terrorist	0.942,1,1	0.9806666667			1		1			authority/no authority			
+congress takes group of schoolchildren_hostage	terrorists takes group of schoolchildren_hostage	NP	congress	terrorists	NA,0.942,1	0.971			1		1			authority/no authority			
+congress_overturns ban on lawn_darts	congress_overturns ban on gay_marriage	NP	lawn_darts	gay_marriage	0.77,0.825	0.7975			1				1	sophisticated/simple			
+conservation_group condemns_waterboarding as wasteful	conservation_group criticizes_waterboarding as wasteful	VP	condemns_waterboarding	criticizes_waterboarding	NA,0.822,0.988	0.905										1	
+david_ortiz two_hours late_getting back to first after pitcher throws over	david_ortiz seconds late_getting back to first after pitcher throws over	NP	two_hours	seconds	1,0.991	0.9955			1					success/failure			
+david_ortiz two_hours late_getting back to first after pitcher throws over	david_ortiz two_seconds late_getting back to first after pitcher throws over	NP	two_hours	two_seconds	0.042,NA,1,0.994	0.6786666667			1					success/failure			
+dead_do_it_yourselfer saved 42 on brake_job	do_it_yourselfer saved 42 on brake_job	NP	dead_do_it_yourselfer	do_it_yourselfer	0.736,1	0.868		1		1				sophisticated/simple			
+department of treasure_releases 2008_doubloons	department of treasure_releases 2008_bonds	NP	2008_doubloons	2008_bonds	NA,NA,NA,0.707,1,1	0.9023333333			1					modern/outdated			
+die_hard_harper_lee_fan has_read all of her_book	die_hard_harper_lee_fan has_read all of her_books	NP	her_book	her_books	0.994,0.84	0.917	1							authority/no authority			
+doctors have cure for head_bonk_amnesia	doctors have cure for amnesia	NP	head_bonk_amnesia	amnesia	NA,0.941,1	0.9705			1		1			sophisticated/simple			
+dog keeps_iceland awake all_night	thunderstorm keeps_iceland awake all_night	NP	dog	thunderstorm	NA,0.801,0.992,0	0.5976666667			1					solemn/mundane			
+dwight howard makes_talking_look almost_effortless during lakers press conference	dwight howard makes_winning_look almost_effortless during lakers press conference	VP	makes_talking_look	makes_winning_look	0.83,0.849	0.8395		1						success/failure			
+eco_conscious_marketing_firm developing alternative_sources of synergy	eco_conscious_marketing_firm developing alternative_sources of energy	NP	synergy	energy	0.976,1	0.988			1			1					
+endangered_wildlife to_be_given new_identities in species protection_program	endangered_wildlife to_be_given new_habitat in species protection_program	NP	new_identities	new_habitat	NA,0.867,1	0.9335			1				1	human/animal			
+endangered_wildlife to_be_given new_identities in species protection_program	endangered_wildlife to_be_given new_habitat in species protection_program	NP	new_identities	new_habitat	1,1	1			1				1	human/animal			
+endangered_wildlife to_be_given new_identities in species protection_program	endangered_wildlife to_be_given new_care in species protection_program	NP	new_identities	new_care	1,1	1			1				1	human/animal			
+england announces roster of world_cupsmen	england announces roster of world_cup	NP	world_cupsmen	world_cup	0.891,0.556	0.7235			1					modern/outdated			
+falcons confirm matt_ryan suffered grade_2_choke	falcons confirm matt_ryan suffered grade_2_fracture	NP	grade_2_choke	grade_2_fracture	1,1	1			1		1	1					
+family takes rare_trip to the_good_mall	family takes rare_trip to home_country	NP	the_good_mall	home_country	0.858,1	0.929		1						rich/poor			
+fantasy_baseball_owner_rips_team in media	baseball_owner_rips_team in media	NP	fantasy_baseball_owner_rips_team	baseball_owner_rips_team	1,1	1			1				1	authority/no authority			
+fantasy_baseball_owner_rips_team in media	baseball_owner_praises_team in media	NP	fantasy_baseball_owner_rips_team	baseball_owner_praises_team	NA,0.882,0.618	0.75			1				1	authority/no authority			
+fbi launches nationwide_manhunt for new_office_manager	fbi launches nationwide_manhunt for office_murderer	NP	new_office_manager	office_murderer	1,1	1			1		1	1					
+fbi_discontinues_witness_protection_parade	budget_cuts_are_no_parade_the_fbi_cuts_resources_to_the_witness_protection_program	NP	fbi_discontinues_witness_protection_parade	budget_cuts_are_no_parade_the_fbi_cuts_resources_to_the_witness_protection_program	NA,1,1	1			1					solemn/mundane			
+fda approves sale of prescription_placebo	fda approves sale of prescription_medications	NP	prescription_placebo	prescription_medications	1,1	1			1			1	1				
+fed_chief makes diplomatic_visit to econopolis	fed_chief makes diplomatic_visit to canada	NP	econopolis	canada	1,0.533	0.7665			1					rich/poor			
+fed_chief makes diplomatic_visit to econopolis	fed_chief makes diplomatic_visit to queen	NP	econopolis	queen	0.75,1	0.875			1					rich/poor			
+fed_chief makes diplomatic_visit to econopolis	fed_chief makes diplomatic_visit to greece	NP	econopolis	greece	0.595,0.893	0.744			1					rich/poor			
+financial_analysts offer_to_talk about recession for 5	financial_analysts offer_to_talk about recession for summit	NP	5	summit	NA,1,1	1		1				1		rich/poor			
+first_homo_leagues_player_shatters_mlb_sexuality_barrier	first_gay_leagues_player_shatters_mlb_sexuality_barrier	NP	first_homo_leagues_player_shatters_mlb_sexuality_barrier	first_gay_leagues_player_shatters_mlb_sexuality_barrier	1,0.991	0.9955										1	
+first_homo_leagues_player_shatters_mlb_sexuality_barrier	first_gay_player_shatters_mlb_sexuality_barrier	NP	first_homo_leagues_player_shatters_mlb_sexuality_barrier	first_gay_player_shatters_mlb_sexuality_barrier	NA,1,NA,NA,1	1										1	
+flaming_streets_plan passes in tennessee	flaming_streets_plan performs in tennessee	VP	passes	performs	NA,1,0.71	0.855										1	
+flaming_streets_plan passes in tennessee	repaving_streets_plan passes in tennessee	NP	flaming_streets_plan	repaving_streets_plan	0.591,NA,0.769	0.68			1		1		1				
+flaming_streets_plan passes in tennessee	safe_streets_plan passes in tennessee	NP	flaming_streets_plan	safe_streets_plan	0.815,0.999	0.907			1		1		1				
+former_movie_star remains comatose following career_reviving_car_crash	former_movie_star remains comatose following career_ending_car_crash	NP	career_reviving_car_crash	career_ending_car_crash	0.851,0.825,1	0.892			1	1		1					
+former_president_bill_clinton becomes pure_energy	former_president_bill_clinton becomes grandfather	NP	pure_energy	grandfather	1,1	1			1					human/object			
+gay_couple feels_pressured_to_marry	gay_couple puts_pressure_on_marry_laws	VP	feels_pressured_to_marry	puts_pressure_on_marry_laws	0.624,1	0.812										1	
+gay_war_hero awarded posthumous_dishonorable_discharge at white_house_ceremony	gay_war_hero awarded posthumous_honorable_discharge at white_house_ceremony	NP	posthumous_dishonorable_discharge	posthumous_honorable_discharge	0.771,1	0.8855		1				1	1				
+general_motors reports record_sales of new_disposable_car	general_motors reports record_sales of new_car	NP	new_disposable_car	new_car	1,1	1			1				1	modern/outdated			
+george w bush forgets_to_mention 9_11 in memoir	george w bush neglects_to_mention 9_11 in memoir	VP	forgets_to_mention	neglects_to_mention	1,0.053,0.871	0.6413333333			1			1		sophisticated/simple			
+george w bush forgets_to_mention 9_11 in memoir	george w bush decides_to_downplay 9_11 in memoir	VP	forgets_to_mention	decides_to_downplay	0.788,0.716,0	0.5013333333			1			1		sophisticated/simple			
+george_zimmerman wins florida_state_lottery	homeless wins florida_state_lottery	NP	george_zimmerman	homeless	NA,1,0.656	0.828		1						rich/poor			
+gm introduces new_2008_line of layoffs	gm introduces new_2008_line of cars	NP	layoffs	cars	1,0.847	0.9235			1			1		human/object			
+goalies playing prominent_role in nhl_playoffs	goalies playing prominent_role in nhl_negotiations	NP	nhl_playoffs	nhl_negotiations	1,1	1											1
+goalies playing prominent_role in nhl_playoffs	defence playing prominent_role in nhl_playoffs	NP	goalies	defence	0.776,1	0.888											1
+god diagnosed with bipolar_disorder	dylan diagnosed with bipolar_disorder	NP	god	dylan	0.187,0.821,0.942	0.65			1					religion/no religion, success/failure			
+god pledges 5_000 for cancer_research	jos_carreras pledges 5_000 for cancer_research	NP	god	jos_carreras	0.663,1	0.8315			1					religion/no religion			
+government_shutdown_forces national_zoo to_turn off panda_suicide_cam	government_shutdown_forces national_zoo to_turn off security_cams	NP	panda_suicide_cam	security_cams	1,1	1			1	1				human/animal			
+graffiti_artist completes masterwork_still_life of marijuana_leaf	graffiti_artist completes masterwork_still_life of leaf	NP	marijuana_leaf	leaf	0.757,1	0.8785		1						solemn/mundane			
+greg oden receiving interest from dallas_office_depot	greg oden receiving interest from dallas_mavericks	NP	dallas_office_depot	dallas_mavericks	0.819,NA,NA,NA,0.774	0.7965			1					authority/no authority			
+greg oden receiving interest from dallas_office_depot	greg oden receiving interest from investments	NP	dallas_office_depot	investments	0.545,NA,0.945	0.745			1					authority/no authority			
+gunman kills zero at kansas_city_area_mall	gunman kills ten at kansas_city_area_mall	NP	zero	ten	0.971,0.953	0.962		1		1				success/failure			
+gunman kills zero at kansas_city_area_mall	gunman kills six at kansas_city_area_mall	NP	zero	six	1,NA,1	1		1		1				success/failure			
+gwendolyn_monroe_mourns_death of ex_husband_dom_dimaggio	gwendolyn_monroe_mourns_death of ex_husband	NP	ex_husband_dom_dimaggio	ex_husband	1,1	1										1	
+gwendolyn_monroe_mourns_death of ex_husband_dom_dimaggio	gwendolyn_monroe_mourns_death of husband_dom_dimaggio	NP	ex_husband_dom_dimaggio	husband_dom_dimaggio	0.773,1	0.8865		1				1					
+headline about so_called_lobsterman extremely_misleading	headline about so_called_israel_warcrimes extremely_misleading	NP	so_called_lobsterman	so_called_israel_warcrimes	0.774,0.591,0.909	0.758			1					human/animal			
+hell now a_thriving_epicenter of gay_culture	greenwich_village now a_thriving_epicenter of gay_culture	NP	hell	greenwich_village	0.929,NA,0.852,1	0.927			1	1				religion/no religion			
+hell now a_thriving_epicenter of gay_culture	ottawa now a_thriving_epicenter of gay_culture	NP	hell	ottawa	0.99,1	0.995			1	1				religion/no religion			
+hillary_clinton resumes_attacking obama	hillary_clinton continues_attacking obama	VP	resumes_attacking	continues_attacking	0.823,NA,1	0.9115		1					1				
+hillary_clinton resumes_attacking obama	hillary_clinton resumes_support_for obama	VP	resumes_attacking	resumes_support_for	1,0.976	0.988	1					1					
+hollywood_diet_secrets have_fallen into non_celebrity_hands	hollywood_diet_recipes have_fallen into non_celebrity_hands	NP	hollywood_diet_secrets	hollywood_diet_recipes	NA,0.973,0.86,0	0.611										1	
+hollywood_mourns passing of 16th_or_17th_lassie	hollywood_mourns passing of robin_williams	NP	16th_or_17th_lassie	robin_williams	1,1	1			1					human/animal, solemn/mundane			
+impressive_wbc_showing gives orlando_yntema_leverage at uvv_utrecht_contract_negotiations	impressive_showing gives orlando_yntema_leverage at uvv_utrecht_contract_negotiations	NP	impressive_wbc_showing	impressive_showing	0.839,1	0.9195										1	
+increased negative_campaigning reveals_previously_hidden ugly_side of politics	increased negative_campaigning reveals ugly_side of politics	VP	reveals_previously_hidden	reveals	NA,1,0.993	0.9965			1					sophisticated/simple			
+increased negative_campaigning reveals_previously_hidden ugly_side of politics	increased negative_campaigning reveals ugly_side of politics	VP	reveals_previously_hidden	reveals	NA,NA,0.97,1	0.985			1					sophisticated/simple			
+increased negative_campaigning reveals_previously_hidden ugly_side of politics	increased negative_campaigning reveals_hidden ugly_side of politics	VP	reveals_previously_hidden	reveals_hidden	0.977,0.886	0.9315			1					sophisticated/simple			
+insurance_company sets value of john_mayer s_hands at just_under_38	insurance_company sets value of john_mayer s_hands at just_under_38_million	NP	just_under_38	just_under_38_million	1,1,0.091	0.697			1					success/failure			
+iraqis_arming selves for independence	iraqis_arming themselves for independence	VP	selves	themselves	1,1	1										1	
+iraqis_arming selves for independence	iraqis_preparing selves for independence	NP	iraqis_arming	iraqis_preparing	0.776,NA,1	0.888	1				1			success/failure			
+jacksonville_jaguars lose multiple_players to better_job_offers	jacksonville_jaguars lose players to better_job_offers	NP	multiple_players	players	1,1	1										1	
+jacksonville_jaguars lose multiple_players to better_job_offers	jacksonville_jaguars lose multiple_players to injuries	NP	better_job_offers	injuries	NA,0.923,0.912	0.9175			1					success/failure			
+jerry_lewis undergoes emergency_gefloigel_surgery	jerry_lewis undergoes emergency_surgery	NP	emergency_gefloigel_surgery	emergency_surgery	1,1	1			1					sophisticated/simple	no genitals/genitals		
+john_daly_injured after vicious_hit during arena_golf_tournament	john_daly_injured after vicious_hit during golf_tournament	NP	arena_golf_tournament	golf_tournament	1,0.942,NA	0.971			1		1	1					
+kentucky_legislature bans gay_pet_weddings	kentucky_legislature bans gay_weddings	NP	gay_pet_weddings	gay_weddings	1,0.846	0.923			1					human/animal			
+kentucky_legislature bans gay_pet_weddings	kentucky_legislature bans gay_weddings	NP	gay_pet_weddings	gay_weddings	1,0.956	0.978			1					human/animal			
+kwanzaa_holiday_sales_figures disappointing	christmas_holiday_sales_figures disappointing	NP	kwanzaa_holiday_sales_figures	christmas_holiday_sales_figures	0.863,1,1	0.9543333333	1					1					
+kwanzaa_holiday_sales_figures disappointing	christmas_holiday_sales_figures disappointing	NP	kwanzaa_holiday_sales_figures	christmas_holiday_sales_figures	1,1	1	1					1					
+last_living_california_raisin dies of prostate_cancer	last_living_wwi_vet dies of prostate_cancer	NP	last_living_california_raisin	last_living_wwi_vet	1,0.949,1	0.983			1					human/animal			
+leading social_media_site_harvardconnection now_valued at 400_billion	leading social_media_site_facebook now_valued at 400_billion	NP	social_media_site_harvardconnection	social_media_site_facebook	1,1	1	1							modern/outdated			
+little_league_world_series to_begin_testing players for mustaches	little_league_world_series to_begin_testing players for drugs	NP	mustaches	drugs	0.838,0.864	0.851			1			1					
+little_league_world_series to_begin_testing players for mustaches	little_league_world_series to_begin_testing players for drugs	NP	mustaches	drugs	0.992,1	0.996			1			1					
+local_bar comes out as_gay	mayor comes out as_gay	NP	local_bar	mayor	0.879,NA,0.81	0.8445			1					human/object			
+local_bar comes out as_gay	nfl_star comes out as_gay	NP	local_bar	nfl_star	0.941,0.979	0.96			1					human/object			
+local_historian has big_news for grover_cleveland_fans	local_historian has big_news for cleveland	NP	grover_cleveland_fans	cleveland	0.757,0.628	0.6925			1					authority/no authority			
+lucky_dead_student gets own_page in yearbook	dead_student gets own_page in yearbook	NP	lucky_dead_student	dead_student	NA,NA,0.832,1	0.916			1					success/failure			
+lutheran_minister arrested on charges of boring_young_children	lutheran_minister arrested on charges of molesting_young_children	NP	boring_young_children	molesting_young_children	0.872,1,1	0.9573333333			1		1	1	1				
+lutheran_minister arrested on charges of boring_young_children	lutheran_minister arrested on charges of abusing_young_children	NP	boring_young_children	abusing_young_children	1,1	1			1		1	1	1				
+lutheran_minister arrested on charges of boring_young_children	lutheran_minister arrested on charges of assaulting_young_children	NP	boring_young_children	assaulting_young_children	0.695,1	0.8475			1		1	1	1				
+man on verge of self_realization instead turns to god	man on verge of suicide instead turns to god	NP	self_realization	suicide	0.989,0.912	0.9505		1		1							
+martin scorsese_attends free_imovie_demonstration at apple_store	martin scorsese_attends movie_demonstration at apple_store	NP	free_imovie_demonstration	movie_demonstration	NA,0.76,1	0.88		1						solemn/mundane			
+matthew_lillard to_play matthew_lillard in upcoming_film	matthew_lillard to_play an_addict in upcoming_film	NP	matthew_lillard	an_addict	NA,1,1	1		1						sophisticated/simple			
+matthew_lillard to_play matthew_lillard in upcoming_film	matthew_lillard to_play aquaman in upcoming_film	NP	matthew_lillard	aquaman	1,0.763	0.8815		1						sophisticated/simple			
+mccain puts father_son_junkyard_business into blind_trust	mccain puts father_son_junkyard_business into trust	NP	blind_trust	trust	1,1	1										1	
+mccain unveils plan for national_soup_pipeline	mccain unveils plan for national_pipeline	NP	national_soup_pipeline	national_pipeline	1,0.769	0.8845			1					sophisticated/simple			
+metta_world_peace_signs 2_year_deal with new_york_post	metta_world_peace_signs 2_year_deal with new_york	NP	new_york_post	new_york	0.994,0.986	0.99			1					authority/no authority, solemn/mundane			
+mexican_program aims_to_reach drug_lords before they get_caught up in cartels	mexican_program aims_to_reach kids before they get_caught up in cartels	NP	drug_lords	kids	0.784,1	0.892			1			1					
+michael_jordan mulling return to craps_table	michael_jordan mulling return to coaching	NP	craps_table	coaching	0.681,0.92	0.8005			1				1	rich/poor, authority/no authority			
+millions without power following_election	millions without power following_storm	NP	following_election	following_storm	0.82,1	0.91		1						authority/no authority			
+millions without power following_election	millions without power following_snowstorm	NP	following_election	following_snowstorm	NA,0.762,1	0.881		1						authority/no authority			
+miracle_dog gives birth to septuplets	dog gives birth to septuplets	NP	miracle_dog	dog	0.782,1	0.891										1	
+miracle_powder turns water into delicious_fruity_drink	powder turns water into delicious_fruity_drink	NP	miracle_powder	powder	1,0.856	0.928			1					religion/no religion			
+mitt_romney adopts new_ronnie_ferocious_persona for debates	mitt_romney adopts new_no_nonesense_persona for debates	NP	new_ronnie_ferocious_persona	new_no_nonesense_persona	0.774,1	0.887			1				1	solemn/mundane			
+mlb quietly euthanizes 120_unnecessary_players	mlb quietly relieves 120_unnecessary_players	VP	euthanizes	relieves	1,NA,0.834,0	0.6113333333			1	1			1				
+moment of silence interrupted by new_tragedy	moment of silence interrupted by heckler	NP	new_tragedy	heckler	NA,0.87,0.96	0.915		1						solemn/mundane			
+more_vegetables evolving chocolate_sauce_filled_centers as evolutionary_imperative	more_vegetables evolving disease_resistance as evolutionary_imperative	NP	chocolate_sauce_filled_centers	disease_resistance	1,0.984	0.992			1				1	human/object			
+nascar considers single_21_500_mile_race for 2011_season	nascar considers new_race for 2011_season	NP	single_21_500_mile_race	new_race	1,0.979	0.9895			1				1				
+nation s_unemployment_outlook improves drastically after fifth_beer	nation s_unemployment_outlook improves drastically after fifth_month	NP	fifth_beer	fifth_month	0.929,0.936,0.289	0.718		1						solemn/mundane, sophisticated/simple, success/failure			
+national_essay_writing_contest now accepting video_submissions	national_essay_writing_contest now accepting submissions	NP	video_submissions	submissions	1,1	1			1					sophisticated/simple			
+nba announces plans to_play game in london in swimming_pool	nba announces plans to_play game in london in summer	NP	swimming_pool	summer	0.847,1,0	0.6156666667			1				1				
+neighbors remember serial_killer as serial_killer	neighbors remember serial_killer as good_neighbor	NP	serial_killer	good_neighbor	1,1	1		1			1						
+neighbors remember serial_killer as serial_killer	neighbors remember serial_killer as normal_person	NP	serial_killer	normal_person	1,1	1		1			1						
+new_college_graduates to_be_cryogenically_frozen until job_market improves	new_college_graduates work_at_non_profits until job_market improves	VP	to_be_cryogenically_frozen	work_at_non_profits	NA,NA,0.828,0.953	0.8905			1				1				
+new_dating_website helps plus_size_jewish_plane_crash_survivors find love	new_dating_website helps plus_size_jewish_people find love	NP	plus_size_jewish_plane_crash_survivors	plus_size_jewish_people	1,0.932	0.966			1				1				
+new_delicious_species discovered	new_delicious_fruit discovered	NP	new_delicious_species	new_delicious_fruit	NA,NA,NA,NA,1,0.598	0.799		1		1				animal/object			
+new_denim_jacket_bolsters_consumer_self_confidence	new_pill_bolsters_self_confidence	NP	new_denim_jacket_bolsters_consumer_self_confidence	new_pill_bolsters_self_confidence	0.933,1,0	0.6443333333		1						sophisticated/simple			
+new_homely_doll to_improve self_image of young_girls	new_doll to_improve self_image of young_girls	NP	new_homely_doll	new_doll	0.847,0.997	0.922		1						solemn/mundane			
+new_homely_doll to_improve self_image of young_girls	new_doll to_improve self_image of young_girls	NP	new_homely_doll	new_doll	NA,0.928,1	0.964		1						solemn/mundane			
+new_homely_doll to_improve self_image of young_girls	new_doll to_improve self_image of young_girls	NP	new_homely_doll	new_doll	0.621,0.763	0.692		1						solemn/mundane			
+new_homely_doll to_improve self_image of young_girls	new_doll_designed to_improve self_image of young_girls	NP	new_homely_doll	new_doll_designed	0.968,0.969	0.9685		1						solemn/mundane			
+new_law_enforcement_robot can_wield excessive_force of 5_human_officers	new_law_enforcement_drone can_wield excessive_force of 5_human_officers	NP	new_law_enforcement_robot	new_law_enforcement_drone	0.684,0.613	0.6485										1	
+new_netpix_service sends unlimited_photographs for monthly_fee	new_netpix_service transfers unlimited_photographs for monthly_fee	VP	sends	transfers	0.834,1	0.917		1						modern/outdated			
+new_netpix_service sends unlimited_photographs for monthly_fee	new_netpix_service sends pronographic_photographs for monthly_fee	NP	unlimited_photographs	pronographic_photographs	1,0.545	0.7725		1						modern/outdated			
+new_social_media start_up_aims to_be cross between facebook_and_facebook	new_social_media start_up_aims to_be cross between facebook_and_phonebook	NP	facebook_and_facebook	facebook_and_phonebook	1,1	1			1					sophisticated/simple			
+new_solar_system discovered 4_feet from earth	new_solar_system discovered 4_light_years from earth	NP	4_feet	4_light_years	1,1	1			1					sophisticated/simple			
+new_vikings_stadium to_forego retractable_roof for individual_fan_domes	new_vikings_stadium to_forego retractable_roof for fixed_dome	NP	individual_fan_domes	fixed_dome	1,1	1			1				1				
+nfl announces jacksonville_jaguars to_play 16_games in london_next_season	nfl announces jacksonville_jaguars to_play 2_games in london_next_season	NP	16_games	2_games	0.971,0.194,1	0.7216666667			1			1		success/failure			
+nfl_linebacker faces suspension for genocide	nfl_linebacker faces suspension for drugs	NP	genocide	drugs	0.877,1	0.9385			1	1	1						
+north_korea_releases new_paintings of healthy_kim jong il	north_korea_releases new_photograph of healthy_kim jong il	NP	new_paintings	new_photograph	0.763,1	0.8815		1				1		modern/outdated			
+obama begins inauguration_festivities with ceremonial_drone_flyover	obama begins inauguration_festivities with speech	NP	ceremonial_drone_flyover	speech	1,1	1			1		1		1				
+obama vows_to_wipe out llamas	obama vows_to_wipe out isis	NP	llamas	isis	1,1	1			1					human/animal			
+obama_orders guant_namo prisoners transferred to next_president	obama_orders guant_namo prisoners transferred to different_prison	NP	next_president	different_prison	0.991,1,0.749	0.9133333333		1				1					
+ohio_state hires jim_tressel as head_football_coach	ohio_state hires jim_tressel as football_coach	NP	head_football_coach	football_coach	0.995,0.983	0.989										1	
+olympic_torch used to_ignite tibetan_protesters	sacred_torch used to_ignite tibetan_protesters	NP	olympic_torch	sacred_torch	0.979,0.938,0	0.639			1			1		religion/no religion			
+organic_hunter relies on chronic_wasting_disease to_kill deer	organic_grower relies on chronic_wasting_disease to_kill deer	NP	organic_hunter	organic_grower	1,0.663	0.8315			1							1	
+peta_protests_use of animatronic_animals in commercials	peta_protests_use of animals in commercials	NP	animatronic_animals	animals	0.859,1	0.9295			1			1		animal/object			
+phil_jackson claims michael_jordan a_better_lover than kobe_bryant	phil_jackson claims michael_jordan a_better_player than kobe_bryant	NP	a_better_lover	a_better_player	1,0.851	0.9255			1						no sex/sex		
+phil_jackson claims michael_jordan a_better_lover than kobe_bryant	phil_jackson claims michael_jordan a_better_player than kobe_bryant	NP	a_better_lover	a_better_player	0.925,1,0.969	0.9646666667			1						no sex/sex		
+pnc_park sold out for fan_euthanasia_night	pnc_park sold out for taylor_swift_concert	NP	fan_euthanasia_night	taylor_swift_concert	0.925,1	0.9625			1	1		1					
+posthumously recorded bob_dylan_album receives rave_reviews	posthumously recorded michael_jackson_album receives rave_reviews	NP	bob_dylan_album	michael_jackson_album	NA,0.903,NA,0.984,1	0.9623333333			1	1							
+president personally performs first_obamacare_euthanization	president personally performs first_obamacare_transaction	NP	first_obamacare_euthanization	first_obamacare_transaction	0.803,0,1	0.601			1	1		1					
+president_bush calls on business_leaders to_create 500_000_crappy_jobs	president_bush calls on business_leaders to_create 500_000_jobs	NP	500_000_crappy_jobs	500_000_jobs	0.808,1	0.904			1			1					
+president_bush designates 1_million_acres for federally_protected_water_parks	president_bush designates 1_million_acres for federally_protected_parks	NP	federally_protected_water_parks	federally_protected_parks	1,1	1			1					solemn/mundane			
+president_bush designates 1_million_acres for federally_protected_water_parks	president_bush designates 1_million_acres for federally_protected_water_reservoirs	NP	federally_protected_water_parks	federally_protected_water_reservoirs	0.994,1	0.997			1					solemn/mundane			
+progressive_congressman promotes bill in 7_8_time	progressive_congressman promotes bill in record_time	NP	7_8_time	record_time	0.759,NA,1	0.8795			1					solemn/mundane			
+progressive_zoo_houses_animals in natural_destroyed_habitat	progressive_zoo_houses_animals in simulated_natural_habitat	NP	natural_destroyed_habitat	simulated_natural_habitat	1,0.752	0.876			1			1					
+recent_saving of planet attributed to working_assets long_distance_plan	recent_saving of bank attributed to working_assets long_distance_plan	NP	planet	bank	0.771,NA,0.985	0.878										1	
+reds cut magic_number to 17	cincinnati_reds cut magic_number to 17	NP	reds	cincinnati_reds	0.683,0.994	0.8385										1	
+researchers discover massive_asshole in blogosphere	researchers discover massive_security_leak in blogosphere	NP	massive_asshole	massive_security_leak	1,0.678	0.839			1					human/object	no feces/feces		
+roger_ebert_hails human_existence as a_triumph	roger_ebert_hails adaptation as a_triumph	NP	human_existence	adaptation	0.858,1,0	0.6193333333		1						human/object			
+roger_ebert_hails human_existence as a_triumph	roger_ebert_hails human_stain as a_triumph	NP	human_existence	human_stain	1,1,0	0.6666666667		1						human/object			
+roger_goodell proposes_eliminating ball from nfl	roger_goodell proposes_eliminating overtime from nfl	NP	ball	overtime	NA,0.723,0.904	0.8135			1				1				
+rowdy_teens take over local_perkins	armed_robbers take over local_perkins	NP	rowdy_teens	armed_robbers	NA,1,1	1		1			1			solemn/mundane			
+roy_halladay gives press_conference to empty_room	roy_halladay gives press_conference to packed_room	NP	empty_room	packed_room	0.976,0.734	0.855		1						authority/no authority, success/failure			
+royal_family_releases kate middleton_ultrasound_image	royal_family_shares kate middleton_ultrasound_image	NP	royal_family_releases	royal_family_shares	0.754,1	0.877											1
+royal_family_releases kate middleton_ultrasound_image	royal_family_releases kate middleton_first_family_photo	NP	middleton_ultrasound_image	middleton_first_family_photo	NA,0.982,1	0.991											1
+russian_officials promise low_death_toll for olympics	russian_officials promise low_highway_toll for olympics	NP	low_death_toll	low_highway_toll	1,0.494,0.867	0.787			1	1	1			success/failure			
+saints set all_time_nfl_record for padding_stats	saints set all_time_nfl_record for rushing_stats	NP	padding_stats	rushing_stats	1,1	1			1			1		success/failure			
+saints set all_time_nfl_record for padding_stats	saints set all_time_nfl_record for scoring_stats	NP	padding_stats	scoring_stats	1,0.635	0.8175			1			1		success/failure			
+saints set all_time_nfl_record for padding_stats	saints set all_time_nfl_record for touchdown_stats	NP	padding_stats	touchdown_stats	0.728,1	0.864			1			1		success/failure			
+san_diego_zoo_displays first_rhino stillborn in captivity	san_diego_zoo_displays first_rhino born in captivity	VP	stillborn	born	1,0.973	0.9865		1						success/failure			
+san_diego_zoo_displays first_rhino stillborn in captivity	san_diego_zoo_displays first_rhino born in captivity	VP	stillborn	born	1,1	1		1						success/failure			
+san_diego_zoo_displays first_rhino stillborn in captivity	san_diego_zoo_displays first_rhino born in captivity	VP	stillborn	born	1,1	1		1						success/failure			
+san_diego_zoo_displays first_rhino stillborn in captivity	san_diego_zoo_displays first_rhino born in captivity	VP	stillborn	born	1,0.888	0.944		1						success/failure			
+scientists teach sign_language to gorilla_suit_wearing_man	scientists teach sign_language to gorilla	NP	gorilla_suit_wearing_man	gorilla	NA,1,1	1			1					human/animal			
+scientists_trace_campus_wide_pussy_shortage to_zbt house	scientists_trace_campus_wide_power_shortage to_zbt house	NP	scientists_trace_campus_wide_pussy_shortage	scientists_trace_campus_wide_power_shortage	0.99,0.93	0.96		1						human/object	no sex/sex		
+several_nfl_teams express interest in your_sister	several_nfl_teams express interest in young_star	NP	your_sister	young_star	1,0.71,1	0.9033333333		1				1			no sex/sex		
+several_nfl_teams express interest in your_sister	several_nfl_teams express interest in andrew_luck	NP	your_sister	andrew_luck	NA,NA,NA,1,1	1		1				1			no sex/sex		
+several_nfl_teams express interest in your_sister	several_nfl_teams express interest in wilson	NP	your_sister	wilson	1,0.816	0.908		1				1			no sex/sex		
+sports_drinks face competition from new_sitting_on_couch_watching_tv_drinks	sports_drinks face competition from new_fruit_drinks	NP	new_sitting_on_couch_watching_tv_drinks	new_fruit_drinks	1,1	1			1					solemn/mundane			
+sports_drinks face competition from new_sitting_on_couch_watching_tv_drinks	sports_drinks face competition from new_flavored_water_drinks	NP	new_sitting_on_couch_watching_tv_drinks	new_flavored_water_drinks	0.941,1	0.9705			1					solemn/mundane			
+stephen_strasburg_tears_everything	stephen_strasburg_tears_contract	NP	stephen_strasburg_tears_everything	stephen_strasburg_tears_contract	0.936,0.991	0.9635		1					1				
+study finds 90 of adopted_children_s biological_parents own_mansions	study finds 1 of adopted_children_s biological_parents own_mansions	NP	90	1	0.8,1	0.9	1					1		rich/poor			
+supreme_court allows corporations to_run for political_office	supreme_court allows immigrants to_run for political_office	NP	corporations	immigrants	1,NA,1	1			1			1		rich/poor, human/object			
+supreme_court allows corporations to_run for political_office	supreme_court allows corporations to_show_support for political_office	VP	to_run	to_show_support	0.665,0.793	0.729			1				1				
+supreme_court rewards base with fan_appreciation_day	motley_crew rewards base with fan_appreciation_day	NP	supreme_court	motley_crew	0.723,NA,0.756	0.7395			1					authority/no authority, solemn/mundane			
+supreme_court understudy fills in for scalia	supreme_court clerk fills in for scalia	PP	understudy	clerk	1,1,NA,0	0.6666666667			1					authority/no authority			
+technical_preschool teaches welding to kids	technical_middleschool teaches welding to kids	NP	technical_preschool	technical_middleschool	0.9,1	0.95			1				1	authority/no authority			
+technological_breakthrough to_fix problems of previous_breakthrough	technological_breakthrough to_fix problems of gaming_overuse	NP	previous_breakthrough	gaming_overuse	1,1	1		1						success/failure			
+technological_breakthrough to_fix problems of previous_breakthrough	technological_breakthrough to_fix problems of solar_cells	NP	previous_breakthrough	solar_cells	1,0.935	0.9675		1						success/failure			
+technological_breakthrough to_fix problems of previous_breakthrough	technological_breakthrough to_fix problems of previous_century	NP	previous_breakthrough	previous_century	0.875,NA,1	0.9375		1						success/failure			
+teen_choice awards honor_cory_monteith with posthumous_surfboard	teen_choice awards honor_cory_monteith with posthumous_award	NP	posthumous_surfboard	posthumous_award	0.894,1	0.947			1	1			1				
+terrier bravely defends family from squeak	terrier bravely defends family from bobcat	NP	squeak	bobcat	1,1	1		1						solemn/mundane			
+terrier bravely defends family from squeak	terrier bravely defends family from intruder	NP	squeak	intruder	NA,1,1	1		1						solemn/mundane			
+terrier bravely defends family from squeak	terrier bravely defends family from cougar	NP	squeak	cougar	NA,NA,NA,0.897,1	0.9485		1						solemn/mundane			
+terrier bravely defends family from squeak	terrier bravely defends family from bear	NP	squeak	bear	NA,1,1	1		1						solemn/mundane			
+terrier bravely defends family from squeak	terrier bravely defends family from intruder	NP	squeak	intruder	0.812,0.996	0.904		1						solemn/mundane			
+terrier bravely defends family from squeak	terrier bravely defends family from intruder	NP	squeak	intruder	0.836,0.903	0.8695		1						solemn/mundane			
+texas vows_to_reclaim title of most_regressive_state from arizona	texas will_reclaim title of most_regressive_state from arizona	VP	vows_to_reclaim	will_reclaim	1,0.863	0.9315										1	
+the_onion_endorses_john_edwards for president	the_times_endorses_edwards for president	NP	the_onion_endorses_john_edwards	the_times_endorses_edwards	0.954,1	0.977	1							authority/no authority, solemn/mundane			
+the_onion_endorses_john_edwards for president	the_tea_party_endorses_john_edwards for president	NP	the_onion_endorses_john_edwards	the_tea_party_endorses_john_edwards	1,1	1	1							authority/no authority, solemn/mundane			
+thriving_onion puts another_print_edition out of business	thriving_ezine puts another_print_edition out of business	NP	thriving_onion	thriving_ezine	0.858,1,0.131	0.663	1							authority/no authority, solemn/mundane			
+tiger_woods announces return to sex	tiger_woods announces return to golf	NP	sex	golf	1,1	1		1						authority/no authority	no sex/sex		
+tiger_woods announces return to sex	tiger_woods announces return to golf	NP	sex	golf	NA,1,0.877	0.9385		1						authority/no authority	no sex/sex		
+tiger_woods announces return to sex	tiger_woods announces return to golf	NP	sex	golf	1,1	1		1						authority/no authority	no sex/sex		
+tiger_woods announces return to sex	tiger_woods announces return to golf	NP	sex	golf	1,1	1		1						authority/no authority	no sex/sex		
+tim_duncan announces shoe_deal with florsheim	tim_duncan announces shoe_deal with nike	NP	florsheim	nike	1,1	1	1							modern/outdated			
+tim_duncan announces shoe_deal with florsheim	tim_duncan announces shoe_deal with nike	NP	florsheim	nike	NA,1,0.913	0.9565	1							modern/outdated			
+tim_duncan announces shoe_deal with florsheim	tim_duncan announces shoe_deal with adidas	NP	florsheim	adidas	0.834,0.815	0.8245	1							modern/outdated			
+tim_duncan announces shoe_deal with florsheim	tim_duncan announces shoe_deal with nike	NP	florsheim	nike	NA,0.984,0.891	0.9375	1							modern/outdated			
+tomato genetically_modified_to_be more_expensive	tomato genetically_modified_to_be more_tasty	ADJP	more_expensive	more_tasty	0.895,0.974	0.9345			1			1					
+u s navy creates cool_new_ping_sound	u s navy creates new_ping_tech	NP	cool_new_ping_sound	new_ping_tech	0.731,0.86,1	0.8636666667		1						sophisticated/simple			
+unemployed_businessman has time for headache	unemployed_businessman has time for reflection	NP	headache	reflection	0.636,0.982	0.809			1					success/failure			
+vegas gives patriots 1_000_point_spread over chargers	vegas gives patriots 10_point_spread over chargers	NP	1_000_point_spread	10_point_spread	NA,1,1	1			1					success/failure			
+vegas gives patriots 1_000_point_spread over chargers	vegas gives patriots 10_point_spread over chargers	NP	1_000_point_spread	10_point_spread	NA,0.531,0.93	0.7305			1					success/failure			
+vegas gives patriots 1_000_point_spread over chargers	vegas gives patriots 10_point_spread over chargers	NP	1_000_point_spread	10_point_spread	1,0.854	0.927			1					success/failure			
+walletless_biden found_handcuffed_to_bedpost	walletless_man found_handcuffed_to_bedpost	NP	walletless_biden	walletless_man	NA,NA,NA,NA,0.882,1	0.941	1							authority/no authority			
+wedding enjoyed by no_one_but_bride	wedding enjoyed by all_guests	NP	no_one_but_bride	all_guests	0.843,NA,1,0	0.6143333333		1						success/failure			
+wendy s_to_phase out unpopular_hamburger_sandwich	wendy s_to_phase out unpopular_lamb_sandwich	NP	unpopular_hamburger_sandwich	unpopular_lamb_sandwich	NA,NA,NA,1,1	1	1							success/failure			
+white_house declares war on dsl_provider	white_house declares war on dsl_pirates	NP	dsl_provider	dsl_pirates	1,1	1			1			1					
+yankees to_play exhibition_game against the_media	yankees to_play exhibition_game against the_mets	NP	the_media	the_mets	1,1	1			1			1					
+yankees to_play exhibition_game against the_media	yankees to_play exhibition_game against the_mets	NP	the_media	the_mets	1,1	1			1			1					
+yankees to_play exhibition_game against the_media	yankees to_play exhibition_game against twins	NP	the_media	twins	1,1	1			1			1					
+yankees to_play exhibition_game against the_media	yankees to_play exhibition_game against the_crowd	NP	the_media	the_crowd	0.82,0.793	0.8065			1			1					
+year of law school now_mandatory for nation s_25_year_olds	year of law school not_advantageous for nation s_25_year_olds	ADJP	now_mandatory	not_advantageous	1,0.073,0.887	0.6533333333			1				1				
+year of law school now_mandatory for nation s_25_year_olds	year of law school now_mandatory for nation s_paralegals	NP	s_25_year_olds	s_paralegals	NA,0.832,1,1	0.944			1				1				

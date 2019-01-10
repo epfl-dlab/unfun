@@ -1,0 +1,783 @@
+---
+title: "Analysis of data from Unfun.me"
+output: html_document
+---
+
+This script produces all the plots and tables appearing in this paper:
+
+Robert West and Eric Horvitz: **Reverse-Engineering Satire, or "Paper on Computational Humor Accepted Despite Making Serious Advances".** *Proceedings of the 33rd AAAI Conference on Artificial Intelligence,* 2019. 
+
+### Load libraries
+
+```{r warning=FALSE, message=FALSE}
+library(xtable)
+library(plotrix)
+library(Matrix)
+library(boot)
+library(lattice)
+```
+
+### Define constants and functions
+
+```{r functions}
+BASEDIR <- sprintf('../..')
+DATADIR <- sprintf('%s/data/', BASEDIR)
+PLOTDIR <- sprintf('%s/data/plots/', BASEDIR)
+
+# Source: http://www.cookbook-r.com/Graphs/Colors_(ggplot2)/
+COL_LIGHTBLUE <- "#56B4E9"
+COL_YELLOW <- "#F0E442"
+COL_DARKBLUE <- "#0072B2"
+COL_RED <- "#D55E00"
+COL_MAGENTA <- "#CC79A7"
+COL_GRAY <- "#999999"
+COL_ORANGE <- "#E69F00"
+COL_GREEN <- "#009E73"
+
+COL_SERIOUS <- COL_GRAY
+COL_THEONION <- COL_ORANGE
+COL_UNFUN <- COL_GREEN
+
+# Set this to FALSE if you don't want to save plots to PDFs.
+SAVE_PLOTS <- FALSE
+
+splitAt <- function(str, sep) strsplit(str, sep)[[1]]
+
+normalizeAndSplitString <- function(str) {
+  str <- tolower(str)
+  str <- gsub('\\W', ' ', str, perl=TRUE)
+  str <- gsub(' +', ' ', str, perl=TRUE)
+  str <- gsub('^ | $', '', str, perl=TRUE)
+  splitAt(str, ' ')
+}
+
+editDist <- function(a, b) {
+  # Split at whitespace and punctuation.
+  a <- normalizeAndSplitString(a)
+  b <- normalizeAndSplitString(b)
+
+  if (length(a) == 0) return(length(b))
+  if (length(b) == 0) return(length(a))
+ 
+  # Distance.
+  d <- array(NA, dim=c(length(b)+1, length(a)+1))
+  # Operations: -1=del, 0=sub, 1=ins, NA=skip.
+  o <- array(NA, dim=c(length(b)+1, length(a)+1))
+ 
+  # Increment along the first column of each row.
+  for (i in 1:(length(b)+1)) {
+    d[i,1] <- i-1
+    o[i,1] <- -1
+  }
+ 
+  # Increment each column in the first row.
+  for (j in 1:(length(a)+1)) {
+    d[1,j] <- j-1
+    o[1,j] <- 1
+  }
+
+  o[1,1] <- NA
+ 
+  # Fill in the rest of the matrix.
+  for (i in 2:(length(b)+1)) {
+    for (j in 2:(length(a)+1)) {
+      if (b[i-1] == a[j-1]) {
+        d[i,j] <- d[i-1,j-1]
+      } else {
+        d[i,j] <- min(c(d[i-1,j-1] + 1, # substitution
+                        d[i,j-1] + 1,   # insertion
+                        d[i-1,j] + 1))  # deletion
+        if (d[i,j] == d[i-1,j-1] + 1) o[i,j] <- 0
+        else if (d[i,j] == d[i,j-1] + 1) o[i,j] <- 1
+        else if (d[i,j] == d[i-1,j] + 1) o[i,j] <- -1
+      }
+    }
+  }
+
+  i <- length(b)+1
+  j <- length(a)+1
+  alg <- NULL
+  while (i > 1 || j > 1) {
+    alg <- c(o[i,j], alg)
+    if (is.na(o[i,j]) || o[i,j] == 0) {
+      i <- i-1
+      j <- j-1
+    } else if (o[i,j] == 1) {
+      j <- j-1
+    } else if (o[i,j] == -1) {
+      i <- i-1
+    }
+  }
+ 
+  list(d=d[length(b)+1, length(a)+1], alg=alg)
+}
+
+chunkEditDist <- function(a, b, chunkLookup) {
+  b_chunked <- chunkLookup[b]
+  a_split <- normalizeAndSplitString(a)
+  b_split <- normalizeAndSplitString(b)
+  result <- list(d=NA, alg=NA, a_lumped=NA, b_lumped=NA, b_chunkLabels=NA,
+                 d_plain=NA, alg_plain=NA, insertion_between_chunks=NA)
+
+  # First compute the edit distance on the unchunked versions of a and b.
+  ed <- editDist(a, b)
+  # This gives an error for one all-Unicode unfunned headline (which we hence include when loading
+  # the data).
+  b_ops <- ed$alg
+  result$d_plain <- ed$d
+  result$alg_plain <- ed$alg
+
+  # Fail if there are out-of-chunk tokens, as the "`" in
+  # [NP local news report] [VP begins] [PP with] ` [VP get] [NP this] [NP '].
+  if (grepl('\\] [^\\[]', b_chunked)) {
+    return(result)
+  }
+  b_chunked <- splitAt(gsub('^\\[|\\]$', '', b_chunked), '\\] \\[')
+  b_chunkLabels <- unlist(lapply(b_chunked, function(x) gsub('^([A-Z]*) .*', '\\1', x)))
+  b_chunkTexts <- unlist(lapply(b_chunked, function(x) paste(normalizeAndSplitString(gsub('^[A-Z]* (.*)',
+                                                                                          '\\1', x)),
+                                                             collapse=' ')))
+  # Fail if there are empty chunks after normalization or if chunking has messed with the string
+  # too much; this happens, e.g., when it splits genitive s from the noun phrase, or transforms
+  # "don't" into "do n't'".
+  if (any(b_chunkTexts == '') || paste(b_split, collapse=' ') != paste(b_chunkTexts, collapse= ' ')) {
+    return(result)
+  }
+  # Construct a string that indicates for each token in the original string (b) which chunk it
+  # belongs to (e.g., "The old man told me" becomes [1,1,1,2,3]).
+  i <- 0
+  b_chunkMemberships <- unlist(lapply(b_chunkTexts,
+                                      function(x) { i <<- i + 1; rep(i, length(splitAt(x, ' '))) }))
+  # Construct the same kind of string for the modified string (a).
+  a_chunkMemberships <- NULL
+  i <- j <- 1
+  insertion_between_chunks <- FALSE
+  while (j <= length(b_ops)) {
+    # We assume that substitutions don't change chunk structure.
+    if (b_ops[j] %in% c(NA, 0)) {
+      a_chunkMemberships <- c(a_chunkMemberships, b_chunkMemberships[i])
+      i <- i + 1
+      j <- j + 1
+    }
+    else if (b_ops[j] == -1) {
+      i <- i + 1
+      j <- j + 1
+    }
+    # We assume that insertions extend the chunk that the previous token belonged to.
+    else if (b_ops[j] == 1) {
+      n <- length(b_chunkMemberships)
+      prev_chunk <- b_chunkMemberships[if (i>1) i-1 else 1]
+      next_chunk <- b_chunkMemberships[if (i<=n) i else n]
+      a_chunkMemberships <- c(a_chunkMemberships, prev_chunk)
+      if (prev_chunk != next_chunk) {
+        insertion_between_chunks <- TRUE
+      }
+      j <- j + 1
+    }
+  }
+  # A function for lumping all tokens of the same chunk into a single string, e.g.,
+  # "The_old_man told me".
+  lump <- function(tokens, memberships) {
+    pasted <- ''
+    for (i in 1:length(memberships)) {
+      if (i == 1) pasted <- tokens[1]
+      else if (memberships[i] == memberships[i-1]) pasted <- paste(pasted, tokens[i], sep='_')
+      else pasted <- paste(pasted, tokens[i], sep=' ')
+    }
+    pasted
+  }
+
+  a_lumped <- lump(a_split, a_chunkMemberships)
+  b_lumped <- lump(b_split, b_chunkMemberships)
+  ed_lumped <- editDist(a_lumped, b_lumped)
+  result$d <- ed_lumped$d
+  result$alg <- ed_lumped$alg
+  result$a_lumped <- a_lumped
+  result$b_lumped <- b_lumped
+  result$b_chunkLabels <- b_chunkLabels
+  result$insertion_between_chunks <- insertion_between_chunks
+  return(result)
+}
+
+plot_edit_dist_hist <- function(x, col, xlab, xlim=c(0,max(x)), filename=NULL,
+                                print_left_ylab=TRUE, print_right_ylab=TRUE) {
+  if (SAVE_PLOTS) pdf(sprintf('%s/%s.pdf', PLOTDIR, filename), width=1.7, height=1.4, pointsize=6,
+                      family='Helvetica', useDingbats=FALSE)
+  par(mar=c(3.2, 3.4, 0.8, 3.4))
+  h <- hist(x, breaks=0:max(x), xlab='', ylab='', main=NULL, xlim=xlim, axes=FALSE, col=col, border=NA)
+  cum <- cumsum(h$counts)/sum(h$counts)
+  ticks <- seq(1, xlim[2] + 0.5, 2)
+  axis(1, at=ticks-0.5, labels=ticks, las=2)
+  mtext(xlab, side=1, line=2)
+  if (!SAVE_PLOTS || print_left_ylab) {
+    axis(2, col=col, col.axis=col)
+    mtext('Number of pairs', side=2, line=2, col=col)
+  }
+  par(new=TRUE)
+  plot(h$breaks[-1]-0.5, cum, type='p', xlab='', ylab='', xlim=xlim, ylim=c(0,1), axes=FALSE)
+  if (!SAVE_PLOTS || print_right_ylab) {
+    axis(4)
+    mtext('Cumulative rel. frequency', side=4, line=2)
+  }
+  if (SAVE_PLOTS) dev.off()
+  return(h)
+}
+
+bootstrap_ci <- function(x) {
+  bo <- boot(x, statistic=function(d, i) return(mean(d[i], na.rm=TRUE)), R=5000)
+  ci <- boot.ci(bo, conf=0.95, type="basic")$basic[4:5]
+  if (is.null(ci)) {
+    upper <- lower <- NA
+  } else {
+    lower <- ci[1]
+    upper <- ci[2]
+  } 
+  list(upper=upper, mean=mean(x, na.rm=TRUE), lower=lower)
+}
+```
+
+### Load data
+
+```{r load data}
+# chunkLookup: mapping from headlines to chunked versions.
+chunkData <- read.table(sprintf('%s/headlines_for_game_ANALYZED_AUGMENTED_LOWERCASE_HEADLINESTYLE.tsv', DATADIR),
+                       sep="\t", quote="", comment.char="", stringsAsFactors=FALSE, encoding="UTF-8")
+colnames(chunkData) <- c('title', 'chunks', 'chunk_labels')
+chunkLookup <- chunkData[,2]
+names(chunkLookup) <- chunkData[,1]
+
+# or: data from "Real or not?" task: rated original headlines from The Onion as well as serious outlets.
+or <- read.table(sprintf('%s/%s', DATADIR, "original_headlines_with_ratings.tsv"), header=TRUE,
+  sep="\t", quote="\"", comment.char="", stringsAsFactors=FALSE, encoding="UTF-8")
+# Ratings: 0 = satirical, 1 = serious (need to flip because on the Unfun website, 0 means real).
+or$rating <- 1 - as.numeric(or$rating)
+or$truth_type <- or$truth_type == 'real'
+
+# d: data from the "Unfun the headline!" task: pairs of real and unfunned versions, alongside rating.
+# The same pair appears as many times as it was rated.
+d <- read.table(sprintf('%s/%s', DATADIR, "pairs_with_ratings.tsv"), header=TRUE,
+  sep="\t", quote="\"", comment.char="", stringsAsFactors=FALSE, encoding="UTF-8")
+# Filter to include only pairs with at least one rating.
+d$rating[d$rating == 'NULL'] <- NA
+# Ratings: 0 = satirical, 1 = serious (need to flip because in Unfun 0 means real).
+d$rating <- 1 - as.numeric(d$rating)
+# Manually remove a nasty Unicode line that screws things up somehow.
+d <- d[d$id != 4381,]
+
+# Single-substitution pairs, labeled with script opposition.
+scr_opp <- read.table(sprintf('%s/pairs_editdist_1_SCRIPT-OPPOSITION.tsv', DATADIR), header=TRUE,
+                      sep="\t", quote="", comment.char="", stringsAsFactors=FALSE, encoding="UTF-8")
+
+# Ids of the unfunned headlines that have at least two ratings, with more than half of them above 0.5.
+idx <- which(!is.na(d$rating))
+xxx <- d[d$id %in% names(which(tapply(d$rating[idx], d$id[idx], length) >= 2)),]
+n <- length(unique(xxx$id))
+GOOD_IDS <- names(which(tapply(xxx$rating, xxx$id, function(x) mean(round(x), na.rm=TRUE) > 0.5)))
+num_successfully_unfunned <- length(GOOD_IDS)
+frac_successfully_unfunned <- num_successfully_unfunned / n
+BAD_IDS <- names(which(tapply(xxx$rating, xxx$id, function(x) mean(round(x), na.rm=TRUE) < 0.5)))
+num_failed_unfunned <- length(BAD_IDS)
+frac_failed_unfunned <- num_failed_unfunned / n
+num_unfunned_at_least_2_ratings <- n
+
+# r: one row per unfunned headline, all ratings for the same headline grouped together, and including
+# chunk and edit-distance information.
+r <- by(d, d$id, function(x) c(x$uid[1], x$original_id[1], x$id[1], x$original_title[1], x$title[1]))
+r <- data.frame(do.call(rbind, r))
+colnames(r) <- c('uid', 'original_id', 'id', 'original_title', 'title')
+r$ratings <- lapply(r$id, function(id) d$rating[d$id==id])
+r$mean_rating <- sapply(r$ratings, function(x) mean(x, na.rm=TRUE))
+# Add edit information.
+edits <- apply(r, 1, function(row) chunkEditDist(row$title, row$original_title, chunkLookup))
+r$title_lumped <- sapply(edits, function(e) e$a_lumped)
+r$original_title_lumped <- sapply(edits, function(e) e$b_lumped)
+r$original_chunkLabels <- sapply(edits, function(e) e$b_chunkLabels)
+r$dist_plain <- sapply(edits, function(e) e$d_plain)
+r$alg_plain <- sapply(edits, function(e) e$alg_plain)
+r$dist <- sapply(edits, function(e) e$d)
+r$alg <- sapply(edits, function(e) e$alg)
+r$insertion_between_chunks <- sapply(edits, function(e) e$insertion_between_chunks)
+r$len <- sapply(r$title, function(t) length(normalizeAndSplitString(t)))
+r$origlen <- sapply(r$original_title, function(t) length(normalizeAndSplitString(t)))
+r$reldist <- r$dist / apply(r[,c('len', 'origlen')], 1, max)
+r$has_token_based_insertion <- sapply(r$alg_plain, function(x) any(x==1, na.rm=TRUE))
+
+# r_clean: same as r, but without headlines where chunking didn't give a clean result and where there's an
+# insertion that cannot be unambiguously attributed to a chunk.
+r_clean <- r[!is.na(r$dist) & !r$insertion_between_chunks,]
+```
+
+### Basic dataset stats
+
+```{r basic dataset stats}
+# Number of unique headlines from The Onion for which we have at least one unfunned version.
+num_orig_headlines <- length(unique(d$original_id)) # 1,191
+
+# Number of unfunned versions with at least 0, 1, 2 ratings.
+# Sanity check: ..._0 is the same as length(unique(d$id)).
+num_unfunned_versions_0 <- sum(tapply(d$rating, d$id, function(x) sum(!is.na(x)) >= 0)) # 2,801
+num_unfunned_versions_0
+num_unfunned_versions_1 <- sum(tapply(d$rating, d$id, function(x) sum(!is.na(x)) >= 1)) # 2,793
+num_unfunned_versions_1
+num_unfunned_versions_2 <- sum(tapply(d$rating, d$id, function(x) sum(!is.na(x)) >= 2)) # 1,806
+num_unfunned_versions_2
+
+# Number of unique user ids.
+num_uniq_uids_unfunned <- length(unique(d$uid)) # 582
+num_uniq_uids_unfunned
+num_uniq_uids_rating <- length(unique(or$uid)) # 546
+num_uniq_uids_rating
+jaccard_unfunning_rating <- length(intersect(d$uid, or$uid)) / length(union(d$uid, or$uid)) # 0.7708
+jaccard_unfunning_rating
+
+# Mean/median number of ratings per user.
+mean_num_ratings_per_uid <- mean(tapply(or$uid, or$uid, length)) # 10.17399
+mean_num_ratings_per_uid
+median_num_ratings_per_uid <- median(tapply(or$uid, or$uid, length)) # 4
+median_num_ratings_per_uid
+
+# Mean/median number of unfunned headlines per user.
+mean_num_unfunned_per_uid <- mean(tapply(d$id, d$uid, function(x) length(unique(x)))) # 4.812715
+mean_num_unfunned_per_uid
+median_num_unfunned_per_uid <- median(tapply(d$id, d$uid, function(x) length(unique(x)))) # 2
+median_num_unfunned_per_uid
+```
+
+In summary, we have collected `r num_unfunned_versions_0` unfunned versions for `r num_orig_headlines` distinct headlines from The Onion.
+`r num_unfunned_versions_1` (`r num_unfunned_versions_2`) unfunned versions have received at least 1 (2) ratings.
+The unfunned headlines came from `r num_uniq_uids_unfunned` unique uids (mean/median number of unfunned versions per user: `r mean_num_unfunned_per_uid`/`r median_num_unfunned_per_uid`).
+The ratings came from `r num_uniq_uids_rating` unique uids (mean/median number of ratings per user: `r mean_num_ratings_per_uid`/`r median_num_ratings_per_uid`).
+
+### Rating histograms
+
+```{r rating histograms}
+plot_rating_hist <- function(x, col, filename=NULL, print_ylab=TRUE) {
+  if (SAVE_PLOTS) pdf(sprintf('%s/%s.pdf', PLOTDIR, filename), width=1.4, height=1, pointsize=6,
+                      family='Helvetica', useDingbats=FALSE)
+  par(mar=c(3.4, 3.9, 0.8, 0.8))
+  hist(x, xlab='', ylab='', breaks=20, col=col, border=NA, main='', ylim=c(0,1500), axes=FALSE)
+  axis(1, las=2)
+  if (!SAVE_PLOTS || print_ylab) {
+    axis(2, las=2)
+    mtext('Frequency', side=2, line=3)
+  }
+  mtext('Reality rating', side=1, line=2.4)
+  if (SAVE_PLOTS) dev.off()
+}
+
+# Rating histogram for unfunned versions of satirical headlines.
+h1 <- plot_rating_hist(d$rating, COL_UNFUN, 'rating_hist_UNFUNNED', TRUE)
+# Rating histogram for serious headlines.
+h2 <- plot_rating_hist(or$rating[or$truth_type==TRUE], COL_SERIOUS, 'rating_hist_SERIOUS', FALSE)
+# Rating histogram for satirical headlines from The Onion.
+h3 <- plot_rating_hist(or$rating[or$truth_type==FALSE], COL_THEONION, 'rating_hist_THEONION', FALSE)
+```
+
+The above shows that people tend to choose extreme, mostly binary ratings.
+
+### Histogram of token-based edit distance
+
+```{r}
+xlim <- c(0, 13.5)
+
+# Only successfully unfunned headlines.
+h <- plot_edit_dist_hist(r$dist_plain[r$id %in% GOOD_IDS], COL_RED, 'Token-based edit distance', xlim,
+                         'edit_dist_hist_TOKENS_SUCCESSFUL')
+
+# List the values of the black dots in the above plot.
+cum <- cumsum(h$counts)/sum(h$counts)
+cum
+```
+
+That is, considering only headlines with token-based edit distance up to 1, 2, 3 gives us `r round(cum[1]*100)`%, `r round(cum[2]*100)`%, `r round(cum[3]*100)`% of the headlines, respectively (when restricting to successful headlines only).
+
+```{r}
+# All unfunned headlines.
+h <- plot_edit_dist_hist(r$dist_plain, COL_UNFUN, 'Token-based edit distance', xlim, 'edit_dist_hist_TOKENS_ALL')
+
+# List the values of the black dots in the above plot.
+cum <- cumsum(h$counts)/sum(h$counts)
+cum
+```
+
+That is, considering only headlines with token-based edit distance up to 1, 2, 3 gives us `r round(cum[1]*100)`%, `r round(cum[2]*100)`%, `r round(cum[3]*100)`% of the headlines, respectively (when not restricting to successful headlines only).
+
+### Ratings as a function of edit distance
+
+```{r edit distance vs. ratings}
+# Here we consider only headlines with at least 2 ratings.
+idx2 <- which(simplify2array(lapply(r$ratings, function(x) sum(!is.na(x)))) >= 2)
+mean_and_ci <- as.data.frame(t(simplify2array(by(r$mean_rating[idx2], r$dist_plain[idx2], bootstrap_ci))))
+
+x <- 1:10
+y <- as.numeric(mean_and_ci$mean[x])
+lo <- as.numeric(mean_and_ci$lower[x])
+hi <- as.numeric(mean_and_ci$upper[x])
+
+if (SAVE_PLOTS) pdf(sprintf('%s/edit_dist_vs_rating.pdf', PLOTDIR), width=1.7, height=1.4, pointsize=6,
+                    family='Helvetica', useDingbats=FALSE)
+par(mar=c(3.2, 3.2, 0.8, 0.2))
+plot(x, y, ylim=range(c(lo, hi)), type='p', bty='n', lwd=2, xlab='', ylab='',
+     col=COL_UNFUN, xaxt='n', pch=20, cex=1.5)
+axis(1, at=x)
+dispersion(x, y, hi, lo, intervals=FALSE, col=COL_UNFUN, arrow.cap=0)
+mtext('Token-based edit distance', side=1, line=2)
+mtext('Mean avg. seriousness rating', side=2, line=2)
+if (SAVE_PLOTS) dev.off()
+```
+
+### Numbers/fractions of serious, satirical, unfunned headlines with majority agreement
+
+```{r headlines with majority agreement}
+real_idx <- which(or$truth_type == TRUE)
+sat_idx <- which(or$truth_type == FALSE)
+
+# Serious headlines with at least 2 ratings that are rated as satirical by more than half of all raters.
+or_real <- or[or$id %in% names(which(tapply(or$id[real_idx], or$id[real_idx], length) >= 2)),]
+deceptive_real_ids <- names(which(tapply(or_real$rating, or_real$id,
+                                         function(x) mean(round(x), na.rm=TRUE) < 0.5)))
+num_deceptive_real <- length(deceptive_real_ids)
+frac_deceptive_real <- num_deceptive_real / length(unique(or_real$id)) # 9.9%
+num_deceptive_real
+frac_deceptive_real
+
+easy_real_ids <- names(which(tapply(or_real$rating, or_real$id,
+                                    function(x) mean(round(x), na.rm=TRUE) > 0.5)))
+num_easy_real <- length(easy_real_ids)
+frac_easy_real <- num_easy_real / length(unique(or_real$id)) # 57.3%
+num_easy_real
+frac_easy_real
+
+length(unique(or_real$id)) - num_deceptive_real - num_easy_real
+(length(unique(or_real$id)) - num_deceptive_real - num_easy_real) / length(unique(or_real$id))
+
+# Satirical headlines with at least 2 ratings that are rated as serious by more than half of all raters.
+or_sat <- or[or$id %in% names(which(tapply(or$id[sat_idx], or$id[sat_idx], length) >= 2)),]
+deceptive_sat_ids <- names(which(tapply(or_sat$rating, or_sat$id,
+                                        function(x) mean(round(x), na.rm=TRUE) > 0.5)))
+num_deceptive_sat <- length(deceptive_sat_ids)
+frac_deceptive_sat <- num_deceptive_sat / length(unique(or_sat$id)) # 7.8%
+num_deceptive_sat
+frac_deceptive_sat
+
+easy_sat_ids <- names(which(tapply(or_sat$rating, or_sat$id,
+                                   function(x) mean(round(x), na.rm=TRUE) < 0.5)))
+num_easy_sat <- length(easy_sat_ids)
+frac_easy_sat <- num_easy_sat / length(unique(or_sat$id)) # 64.8%
+num_easy_sat
+frac_easy_sat
+
+length(unique(or_sat$id)) - num_deceptive_sat - num_easy_sat
+(length(unique(or_sat$id)) - num_deceptive_sat - num_easy_sat) / length(unique(or_sat$id))
+
+num_successfully_unfunned # 654
+frac_successfully_unfunned # 36.2%
+num_failed_unfunned # 582
+frac_failed_unfunned # 32.2%
+
+num_unfunned_at_least_2_ratings - num_successfully_unfunned - num_failed_unfunned
+(num_unfunned_at_least_2_ratings - num_successfully_unfunned -
+    num_failed_unfunned) / num_unfunned_at_least_2_ratings
+```
+
+In summary, there are `r num_deceptive_real` (`r round(frac_deceptive_real*100)`%) real, serious headlines (with at least 2 ratings) that are mistaken as satirical by more than half of all raters.
+There are `r num_easy_real` (`r round(frac_easy_real*100)`%) real, serious headlines (with at least 2 ratings) that are correctly labeled by more than half of all raters.
+
+There are `r num_deceptive_sat` (`r round(frac_deceptive_sat*100)`%) headlines from The Onion (with at least 2 ratings) that are mistaken as serious by more than half of all raters.
+There are `r num_easy_sat` (`r round(frac_easy_sat*100)`%) headlines from The Onion (with at least 2 ratings) that are correctly labeled by more than half of all raters.
+
+There are `r length(BAD_IDS)` (`r round(frac_failed_unfunned*100)`%) unfunned versions (with at least 2 ratings) that are labeled as satirical by more than half of all raters.
+These are definitely failed attempts at unfunning, so we should discard them.
+There are `r length(GOOD_IDS)` (`r round(frac_successfully_unfunned*100)`%) unfunned versions (with at least 2 ratings) that are labeled as serious by more than half of all raters.
+We will focus on these for most of our analysis.
+
+### Example headlines
+
+```{r example headlines}
+# Some consistently misclassified serious headlines.
+sample(unique(or$title[or$id %in% deceptive_real_ids]), 20)
+
+# Some consistently misclassified satirical headlines.
+sample(unique(or$title[or$id %in% deceptive_sat_ids]), 20)
+
+# Some successfully unfunned headlines.
+xxx <- d[d$id %in% sample(GOOD_IDS, 20),]
+yyy <- t(simplify2array(by(xxx, apply(xxx, 1, function(x) paste(x[1], x[2])),
+                           function(x) c(x$original_title[1], x$title[1]))))
+colnames(yyy) <- c('original', 'unfunned')
+rownames(yyy) <- NULL
+yyy
+
+# Some failed unfunned headlines.
+xxx <- d[d$id %in% sample(BAD_IDS, 20),]
+yyy <- t(simplify2array(by(xxx, apply(xxx, 1, function(x) paste(x[1], x[2])),
+                           function(x) c(x$original_title[1], x$title[1]))))
+colnames(yyy) <- c('original', 'unfunned')
+rownames(yyy) <- NULL
+yyy
+```
+
+### Distribution of edit operations
+
+We consider only successfully unfunned headlines here.
+
+```{r distribution of edit operations}
+compute_edit_hist <- function(dists) {
+  edit_distrib <- lapply(dists, function(x) c(sum(x==1, na.rm=TRUE),
+                                              sum(x==-1, na.rm=TRUE), sum(x==0, na.rm=TRUE)) / sum(!is.na(x)))
+  edit_distrib <- data.frame(do.call(rbind, edit_distrib))
+  colnames(edit_distrib) <- c('Insertion', 'Deletion', 'Substit.')
+  colMeans(edit_distrib)
+}
+
+h_all <- compute_edit_hist(r$alg_plain[r$id %in% GOOD_IDS])
+h_1 <- compute_edit_hist(r$alg_plain[r$id %in% GOOD_IDS & r$dist_plain==1])
+
+# All pairs.
+h_all
+# Only pairs with edit distance 1.
+h_1
+
+if (SAVE_PLOTS) pdf(sprintf('%s/edit_type_hist_SUCCESSFUL.pdf', PLOTDIR), width=1.7, height=1.4, pointsize=6,
+                    family='Helvetica', useDingbats=FALSE)
+par(mar=c(2.2, 3.2, 0.8, 0.2))
+col <- COL_RED
+barplot(rbind(h_all, h_1), beside=TRUE, col=c(col, sprintf('%s80', col)), border=NA, ylim=c(0,0.8))
+mtext('Relative frequency', side=2, line=2)
+legend(x=0.75, y=0.85, legend=c('All pairs', 'Pairs with edit dist. 1'), bty='n',
+       fill=c(col, sprintf('%s80', col)), border=NA)
+if (SAVE_PLOTS) dev.off()
+```
+
+### Most frequent syntactic patterns
+
+We parse all `r dim(chunkData)[1]` Onion headlines used in the game using a shallow parser (a.k.a. chunker).
+These are the most frequent syntactic patterns (chunk sequences):
+
+```{r most frequent syntatic patterns}
+h <- sort(tapply(chunkData$chunk_labels, chunkData$chunk_labels, length), decreasing=TRUE)
+chunk_seq_hist <- data.frame(freq=h, rel_freq=round(h/sum(h), 3))
+head(chunk_seq_hist, 10)
+```
+
+### Histogram of chunk-based edit distance
+
+From here on, we discard headlines where the original or the unfunned versions contains out-of-chunk tokens
+and where there's an insertion that cannot be unambiguously attributed to a chunk.
+
+```{r histogram of chunk-based edit distance}
+frac_insertion_between_chunks <- sum(!is.na(r$dist) & r$insertion_between_chunks) / sum(!is.na(r$dist))
+```
+
+The latter filter removes only `r frac_insertion_between_chunks * 100`% of the headlines without out-of-chunk tokens.
+
+```{r}
+h <- plot_edit_dist_hist(r_clean$dist[r_clean$id %in% GOOD_IDS], COL_LIGHTBLUE, xlab='Chunk-based edit distance',
+                         filename='edit_dist_hist_CHUNKS')
+cum <- cumsum(h$counts)/sum(h$counts)
+```
+
+That is, considering only headlines with chunked edit distance up to 1, 2, 3 gives us `r round(cum[1]*100)`%, `r round(cum[2]*100)`%, `r round(cum[3]*100)`% of the headlines, respectively.
+
+
+### Headlines with exactly one edit operation
+
+We now focus on successfully unfunned headlines.
+
+Consider chunk-based (rather than token-based) edit distance, focusing on the pairs with chunk-based edit distance 1, and compute the distribution of edit operations (insertions, substitutions, deletions).
+
+```{r}
+r1 <- r_clean[r_clean$dist==1 & r_clean$id %in% GOOD_IDS,]
+op1 <- sapply(r1$alg, function(l) l[!is.na(l)])
+h <- tapply(op1, op1, length)
+barplot(h, names.arg=c('DEL', 'SUB'), col=COL_DARKBLUE, border=NA)
+h
+```
+
+We see that, under this metric, nearly all edits (`r h['0']` of `r sum(h)`) are substitutions.
+Note that there are no insertions because of the way we compute chunk-based edit operations from token-based ones.
+
+Hence, we focus on substitutions.
+
+```{r}
+r1_sub <- r1[op1==0,]
+r1_sub$pos <- sapply(r1_sub$alg, function(l) which(!is.na(l)))
+sub_pairs <- data.frame(t(apply(r1_sub, 1, function(row) {
+  c(
+    row$original_title_lumped,
+    row$title_lumped,
+    row$original_chunkLabels[row$pos],
+    normalizeAndSplitString(row$original_title_lumped)[row$pos],
+    normalizeAndSplitString(row$title_lumped)[row$pos],
+    paste(row$ratings, collapse=','),
+    mean(mean(row$ratings, na.rm=TRUE))
+  )})))
+colnames(sub_pairs) <- c('old_title', 'new_title', 'modified_chunk_label',
+                         'old_chunk', 'new_chunk', 'ratings', 'mean_rating')
+# Write the pairs with chunk-based edit distance 1 to file.
+write.table(sub_pairs[order(sub_pairs$old_title),], sprintf("%s/pairs_editdist_1.tsv", DATADIR),
+  sep='\t', row.names=FALSE, col.names=TRUE, quote=FALSE, fileEncoding="UTF-8")
+```
+
+From now on, we work with `r nrow(sub_pairs)` pairs (labeled as serious by a majority; no-out-of-chunk tokens; no between-chunk insertions;
+exactly one chunk-based edit, which is a substitution).
+
+If we sampled phrases to modify uniformaly at random (one per headline), what would be the histogram?
+
+```{r}
+phrase_types <- unique(unlist(r1_sub$original_chunkLabels))
+prior_phrase_freqs <- sort(sapply(phrase_types,
+                                  function(type) mean(apply(
+                                    r1_sub, 1, function(x) mean(x$original_chunkLabels == type)))),
+                           decreasing=TRUE)
+```
+
+Which phrases are modified most often?
+
+```{r most frequently modified chunks}
+modified_phrase_freqs <- (tapply(sub_pairs$modified_chunk_label,
+                                 sub_pairs$modified_chunk_label, length) /
+                            nrow(sub_pairs))[names(prior_phrase_freqs)]
+modified_phrase_freqs[is.na(modified_phrase_freqs)] <- 0
+phrase_freqs <- data.frame(empirical=modified_phrase_freqs, prior=prior_phrase_freqs,
+                           lift=modified_phrase_freqs/prior_phrase_freqs)
+phrase_freqs
+```
+
+Where in the headline to substitutions take place?
+We consider the sequence of edit operations needed to transform the original into the unfunned headline, and compute the position of the substitution in this sequence.
+
+```{r edit position distribution}
+draw_edit_pos_hist <- function(r_part, len, filename=NULL, width=NULL, print_ylab=TRUE, print_legend=FALSE) {
+  h <- tapply(r_part$pos, r_part$pos, length)/length(r_part$pos)
+  hh <- rep(0,len)
+  names(hh) <- 1:len
+  hh[names(h)] <- h
+  if (SAVE_PLOTS && !is.null(filename))
+    pdf(sprintf('%s/%s.pdf', PLOTDIR, filename), width=width, height=1.4, pointsize=9,
+        family='Helvetica', useDingbats=FALSE)
+  par(mar=c(3.2, 3.2, 1, 0.2))
+  print(sprintf('Length %d (N=%d)', len, nrow(r_part)))
+  barplot(hh, xlab='Position of substitution', ylab='', ylim=c(0,0.6), col=COL_LIGHTBLUE,
+          border=NA)
+  mtext('Chunk position', side=1, line=2)
+  if (print_ylab) {
+    mtext('Relative frequency', side=2, line=2)
+  }
+  abline(h=1/len, col=COL_GRAY, lwd=1, lty=2)
+  if (print_legend) {
+    legend(x=0.5, y=0.675, legend=c('Empirical', 'Random'), bty='n', lty=c(1,2), lwd=c(6,1),
+           col=c(COL_LIGHTBLUE, COL_GRAY))
+  }
+  if (SAVE_PLOTS && !is.null(filename)) dev.off()
+}
+
+# For each length separately.
+if (!SAVE_PLOTS) par(mfrow=c(2,2))
+for (len in 3:6) {
+  r1_sub_part <- r1_sub[apply(r1_sub, 1, function(x) length(x$alg)) == len,]
+  draw_edit_pos_hist(r1_sub_part, len, sprintf('edit_pos_distrib_length=%d', len),
+                     width=2.2*(0.82*len/6 + 0.18), print_ylab=(len==3), print_legend=(len==6))
+}
+par(mfrow=c(1,1))
+```
+
+```{r}
+chunk_patterns <- sapply(r$original_chunkLabels, function(x) paste(x, sep=" ", collapse=" "))
+
+# Top chunk patterns among all pairs (i.e., not only successful ones with exactly one chunk-based substitution).
+chunk_pattern_freq <- sort(tapply(chunk_patterns, chunk_patterns, length), decreasing=TRUE)
+cbind(chunk_pattern_freq, chunk_pattern_freq / sum(chunk_pattern_freq))[1:10,]
+
+# Pairs with the most frequent pattern (NP VP NP PP NP) with exactly one subsitution.
+mask <- sapply(r1_sub$original_chunkLabels, function(x) paste(x, sep=" ", collapse=" ")) == 'NP VP NP PP NP'
+
+# Separately for the most frequent chunk pattern (NP VP NP PP NP). Since positions 1, 3, 5 are all NP,
+# this shows that the last position is modified not simply because it's an NP.
+r1_sub_common_pattern <- r1_sub[mask,]
+draw_edit_pos_hist(r1_sub_common_pattern, 5)
+
+# Plot average chunk length as a function of position.
+chunk_lengths <- t(sapply(r1_sub_common_pattern$original_title_lumped,
+                          function(t) sapply(splitAt(t, ' '), function(ch) length(splitAt(ch, '_')))))
+colnames(chunk_lengths) <- 1:5
+mean_and_ci <- as.data.frame(t(simplify2array(apply(chunk_lengths, 2, bootstrap_ci))))
+x <- 1:5
+y <- as.numeric(mean_and_ci$mean[x])
+lo <- as.numeric(mean_and_ci$lower[x])
+hi <- as.numeric(mean_and_ci$upper[x])
+plot(x, y, ylim=range(c(lo, hi, y), na.rm=TRUE), type='b', bty='n', lwd=2, xlab='Chunk position', ylab='Mean length',
+     col=COL_LIGHTBLUE)
+dispersion(x, y, hi, lo, intervals=FALSE, col=COL_LIGHTBLUE)
+
+# As a sanity check, repeat for token level, i.e., headlines with exactly one token-level substitution.
+rrr <- r[r$id %in% GOOD_IDS & r$dist_plain == 1 & sapply(r$alg_plain, function(x) sum(x==0, na.rm=TRUE) == 1),]
+rrr$pos <- sapply(rrr$alg_plain, function(l) which(!is.na(l)))
+par(mfrow=c(3,3))
+for (l in 5:13) {
+  r_part <- rrr[rrr$origlen == l,]
+  draw_edit_pos_hist(r_part, l)
+}
+par(mfrow=c(1,1))
+```
+
+### Semantic analysis: script opposition
+
+```{r script opposition}
+for (c in c(8:14, 17:18)) {
+  scr_opp[,c] <- as.logical(scr_opp[,c])
+  scr_opp[is.na(scr_opp[,c]), c] <- FALSE
+}
+
+scr_opp <- scr_opp[!scr_opp$unfunning_failed & !scr_opp$not_clear_why_headline_funny, -(17:18)]
+
+for (c in c('high.low.stature', 'non.obscene.obscene')) {
+  memberships <- strsplit(scr_opp[,c], ', ')
+  opps <- unique(unlist(memberships))
+  for (o in opps) {
+    scr_opp[, sprintf('%s_%s', c, make.names(o))] <- sapply(memberships, function(l) o %in% l)
+  }
+  scr_opp[,c] <- sapply(memberships, function(l) length(l) > 0)
+}
+
+means <- c(
+colMeans(scr_opp[,8:10]),
+colMeans(scr_opp[,c(11:14,16)]),
+colMeans(scr_opp[,c(15,17:26)])
+)
+
+fracs <- data.frame(Class=names(means), Percentage=means, stringsAsFactors=FALSE)
+rownames(fracs) <- 1:nrow(fracs)
+fracs$Percentage <- sapply(fracs$Percentage, function(x) sprintf('%.0f\\%%', round(x*1000)/10))
+fracs$Class <- sapply(fracs$Class, function(s) gsub('.*_(.*)', '\\1', s, perl=TRUE))
+
+nice_names <- c(
+"actual/non-actual",
+"normal/abnormal",
+"possible/impossible",
+"life/death",
+"no violence/violence",
+"good/bad intentions",
+"reasonable/absurd response",
+"non-obscene/obscene",
+"high/low stature",
+"\\hspace{3mm} authority/no authority",
+"\\hspace{3mm} solemn/mundane",
+"\\hspace{3mm} human/object",
+"\\hspace{3mm} sophisticated/simple",
+"\\hspace{3mm} success/failure",
+"\\hspace{3mm} rich/poor",
+"\\hspace{3mm} modern/outdated",
+"\\hspace{3mm} human/animal",
+"\\hspace{3mm} religion/no religion",
+"\\hspace{3mm} animal/object"
+)
+names(nice_names) <- fracs$Class
+fracs$Class <- nice_names[fracs$Class]
+
+print(xtable(fracs), hline.after=c(-1,0,3,nrow(fracs)), include.rownames=FALSE,
+      sanitize.text.function=function(s) s)
+
+par(mar=c(3,16,2,2))
+barplot(means, horiz=TRUE, las=2, col=c(1,1,1, 2:6, rep(7, 11)))
+```
