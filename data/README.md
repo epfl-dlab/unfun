@@ -1,9 +1,12 @@
+# Data
+
 This folder contains the data collected via the online game Unfun.me. The game as well as results are described in this paper:
 
-Robert West and Eric Horvitz: Reverse-Engineering Satire, or “Paper on Computational Humor Accepted Despite Making Serious Advances”. Proceedings of the 33rd AAAI Conference on Artificial Intelligence, 2019. 
+Robert West and Eric Horvitz: **Reverse-Engineering Satire, or “Paper on Computational Humor Accepted Despite Making Serious Advances”.** *Proceedings of the 33rd AAAI Conference on Artificial Intelligence,* 2019. 
 
 When using this dataset, please cite the above paper. Here's a BibTeX entry you may use:
 
+```
 @inproceedings{west-horvitz-aaai2019-unfun,
 title={Reverse-Engineering Satire, or “Paper on Computational Humor Accepted Despite Making Serious Advances”},
 author={Robert West and Eric Horvitz},
@@ -11,13 +14,12 @@ booktitle={Proceedings of the 33rd AAAI Conference on Artificial Intelligence},
 url={https://dlab.epfl.ch/people/west/pub/West-Horvitz_AAAI-19.pdf},
 year={2019}
 }
+```
 
 Below, we describe each of the data files provided.
 
 
-###########################
-# unfun_2018-07-12.sql.gz #
-###########################
+## unfun_2018-07-12.sql.gz
 
 This file is a complete database dump of Unfun.me as of July 12, 2018. Only the table of user profiles has been dropped, and IP addresses and user agent information has been salted and hashed.
 
