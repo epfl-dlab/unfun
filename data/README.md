@@ -2,7 +2,7 @@
 
 This folder contains the data collected via the online game [Unfun.me](http://unfun.me). The game as well as results are described in this paper:
 
-Robert West and Eric Horvitz: **Reverse-Engineering Satire, or “Paper on Computational Humor Accepted Despite Making Serious Advances”.** *Proceedings of the 33rd AAAI Conference on Artificial Intelligence,* 2019. 
+> Robert West and Eric Horvitz: **Reverse-Engineering Satire, or “Paper on Computational Humor Accepted Despite Making Serious Advances”.** *Proceedings of the 33rd AAAI Conference on Artificial Intelligence,* 2019. 
 
 When using this dataset, please cite the above paper. Here's a BibTeX entry you may use:
 
