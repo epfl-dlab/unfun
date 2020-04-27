@@ -158,3 +158,9 @@ Tab-separated columns:
 - concrete script oppositions (6 columns): for each of 'life/death', 'non-violence/violence', 'good/bad intentions', 'reasonable/absurd response', 'high/low stature', 'non-obscene/obscene', `1` (or in some cases a more precise label for the opposition) if the headline follows that concrete script opposition, empty otherwise
 - flag marking headlines where manual inspection revealed that the humor was not successfully removed from the original headline, even though the ratings indicate otherwise
 - flag marking original satirical headlines that were not obviously humorous without additional context
+
+
+## en-chunker_AUGMENTED_LOWERCASE_HEADLINESTYLE.bin
+
+OpenNLP chunker model retrained in order to be able to deal with pithy, headline-style text.
+Produced by `../code/bash/retrain_chunking_model.sh`; used by `../code/perl/chunk_headlines.pl`.

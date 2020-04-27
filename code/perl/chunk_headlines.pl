@@ -21,8 +21,10 @@ my $OPENNLP = "$OPENNLP_DIR/bin/opennlp";
 my $DATA_DIR = "../../data";
 my $TOK_CMD = "$OPENNLP TokenizerME $MODEL_DIR/en-token.bin";
 my $POS_CMD = "$OPENNLP POSTagger $MODEL_DIR/en-pos-maxent.bin";
-# The augmented chunker model is created by running augment_conll_training_data.pl before running
-# this script.
+# The augmented chunker model is available in the file
+# ../../data/en-chunker_AUGMENTED_LOWERCASE_HEADLINESTYLE.bin,
+# which you should copy to $MODEL_DIR. Alternatively, you can create the augmented model yourself
+# by running ../bash/retrain_chunking_model.sh before running this script.
 my $CHUNK_CMD = "$OPENNLP ChunkerME $MODEL_DIR/en-chunker_AUGMENTED_LOWERCASE_HEADLINESTYLE.bin";
 
 sub reformat {
