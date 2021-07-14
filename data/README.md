@@ -19,11 +19,16 @@ When using this dataset, please cite the above paper. Here's a BibTeX entry you 
 Below, we describe each of the data files provided.
 
 
-## unfun_2018-07-12.sql.gz
+## unfun_YYYY-MM-DD.sql.gz
 
-This file is a complete database dump of Unfun.me as of July 12, 2018. Only the table of user profiles has been dropped, and IP addresses and user agent information has been salted and hashed.
+These files are complete database dumps of Unfun.me, for various dates:
 
-This dump has nearly all the information you will need, with these exceptions:
+- Version 1 (12 July 2018): [`unfun_2018-07-12.sql.gz`](unfun_2018-07-12.sql.gz)
+- Version 2 (9 March 2020): [`unfun_2020-03-09.sql.gz`](unfun_2020-03-09.sql.gz)
+
+Only the table of user profiles has been dropped, and IP addresses and user agent information has been salted and hashed.
+
+These dumps have nearly all the information you will need, with these exceptions:
 - The [chunked](https://web.archive.org/web/20190110112122/https://opennlp.apache.org/docs/1.9.1/manual/opennlp.html) versions of headlines from *The Onion* are available only in `headlines_for_game_ANALYZED_AUGMENTED_LOWERCASE_HEADLINESTYLE.tsv` (original, satirical headlines from *The Onion* only; unfunned versions are chunked on the fly in [`../code/R/analyze_unfun_data.Rmd`](../code/R/analyze_unfun_data.Rmd)).
 - Script oppositions for pairs of satirical and similar-but-serious-looking headlines are available only in `pairs_editdist_1_SCRIPT-OPPOSITION.tsv`.
 
