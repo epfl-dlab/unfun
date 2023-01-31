@@ -25,6 +25,7 @@ These files are complete database dumps of Unfun.me, for various dates:
 
 - Version 1 (12 July 2018): [`unfun_2018-07-12.sql.gz`](unfun_2018-07-12.sql.gz)
 - Version 2 (9 March 2020): [`unfun_2020-03-09.sql.gz`](unfun_2020-03-09.sql.gz)
+- Version 2 - MySQL compatible (9 March 2020): [`unfun_2020-03-09-mysql_compatible.sql.gz`](unfun_2020-03-09-mysql_compatible.sql.gz)
 
 Only the table of user profiles has been dropped, and IP addresses and user agent information has been salted and hashed.
 
