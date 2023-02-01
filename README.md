@@ -19,7 +19,6 @@ When using this dataset, please cite the above paper. Here's a BibTeX entry you 
 Most important, we publish full database dumps of Unfun.me:
 - Version 1 (12 July 2018): [`data/unfun_2018-07-12.sql.gz`](data/unfun_2018-07-12.sql.gz)
 - Version 2 (9 March 2020): [`data/unfun_2020-03-09.sql.gz`](data/unfun_2020-03-09.sql.gz)
-- Version 2 - MySQL compatible (9 March 2020): [`data/unfun_2020-03-09-mysql_compatible.sql.gz`](data/unfun_2020-03-09-mysql_compatible.sql.gz)
 
 We also release R code for reproducing all results (incl. plots and tables) of the paper:
 - [`code/R/analyze_unfun_data.Rmd`](code/R/analyze_unfun_data.Rmd)
