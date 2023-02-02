@@ -2,7 +2,7 @@
 
 # Note: This script is to be run on the original, raw database dump, which is not made available on GitHub.
 # (Only the result of this script is made available on GitHub.)
-# This script is provided merely for transparency pu`rposes.
+# This script is provided merely for transparency purposes.
 
 use Digest::SHA qw(sha256_hex);
 
