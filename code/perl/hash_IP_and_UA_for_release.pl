@@ -22,11 +22,11 @@ while (my $line = <DB>) {
   }
   if (!$mute) {
     if ($table eq 'batches') {
-      if ($line =~ /\('(.+)', '(.+)', '(.+)', '(.+)', '(.+)'\)(,?)/) {
-        my ($id, $uid, $date, $http_user_agent, $ip_address, $comma) = ($1, $2, $3, $4, $5, $6);
+      if ($line =~ /\('(.+)', '(.+)', '(.+)', '(.+)', '(.+)'\)([,;]?)/) {
+        my ($id, $uid, $date, $http_user_agent, $ip_address, $sep) = ($1, $2, $3, $4, $5, $6);
         $http_user_agent = sha256_hex($http_user_agent . $SALT);
         $ip_address = sha256_hex($ip_address . $SALT);
-        $line = "('$id', '$uid', '$date', '$http_user_agent', '$ip_address')$comma\n";
+        $line = "('$id', '$uid', '$date', '$http_user_agent', '$ip_address')$sep\n";
       }
     }
     print $line;
